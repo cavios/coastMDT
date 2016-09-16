@@ -2,3 +2,6 @@
 
 export(gaussAniKernel)
 export(getSubGrid)
+export(readncdf1var)
+importFrom(ncdf,get.var.ncdf)
+importFrom(ncdf,open.ncdf)

@@ -6,6 +6,8 @@ Author: Karina Nielsen, Ole B. Andersen, and Per Knudsen
 Maintainer: Karina Nielsen <karni@space.dtu.dk>
 Description: More about what it does (maybe more than one line)
 License: GNU LESSER GENERAL PUBLIC LICENSE
+Imports:
+   ncdf
 URL: https://github.com/cavios/coastMDT
 LazyData: TRUE
 BugReports: https://github.com/cavios/coastMDT/issues
