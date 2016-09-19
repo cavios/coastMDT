@@ -7,8 +7,8 @@ Maintainer: Karina Nielsen <karni@space.dtu.dk>
 Description: More about what it does (maybe more than one line)
 License: GNU LESSER GENERAL PUBLIC LICENSE
 Imports:
-   ncdf
+   ncdf4,
+   smoothie
 URL: https://github.com/cavios/coastMDT
 LazyData: TRUE
 BugReports: https://github.com/cavios/coastMDT/issues
-

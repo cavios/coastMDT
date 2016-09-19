@@ -2,6 +2,9 @@
 
 export(gaussAniKernel)
 export(getSubGrid)
+export(iterativeAveSmoother)
 export(readncdf1var)
-importFrom(ncdf,get.var.ncdf)
-importFrom(ncdf,open.ncdf)
+importFrom(ncdf4,nc_close)
+importFrom(ncdf4,nc_open)
+importFrom(ncdf4,ncvar_get)
+importFrom(smoothie,kernel2dmeitsjer)

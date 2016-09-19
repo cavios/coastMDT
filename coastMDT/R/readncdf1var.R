@@ -2,8 +2,7 @@
 ##'
 ##' This function \code{readncdf1var} ........
 ##' @param filename String containing the filename 
-##' @param var String containing the variable name
-##' @importFrom ncdf open.ncdf get.var.ncdf
+##' @importFrom ncdf4 nc_open ncvar_get nc_close
 ##' @return Matrix var[longitude,latitude]
 ##' ##' @details ...
 ##' @export
@@ -11,7 +10,9 @@
 ##'\dontrun{
 ##' mydat<-readncdf1var('landmask8_anyland.nc','zno')
 ##' }
-readncdf1var<-function(filename,var){
-    ncin <- open.ncdf(filename)
-    return(get.var.ncdf(ncin,var))  
+readncdf1var<-function(filename){
+    nc <- nc_open(filename)
+    data <- ncvar_get(nc)
+    nc_close(nc)
+    return(data)  
 }
