@@ -8,7 +8,7 @@
 ##' @export
 ##' @examples
 ##'\dontrun{
-##' mydat<-readncdf1var('landmask8_anyland.nc','zno')
+##' mydat<-readncdf1var('landmask8_anyland.nc')
 ##' }
 readncdf1var<-function(filename){
     nc <- nc_open(filename)
