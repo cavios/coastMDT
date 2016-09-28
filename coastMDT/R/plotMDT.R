@@ -13,7 +13,7 @@
 plotMDT<-function(mymdt,zlim,lonlim,latlim,addContour=TRUE,res=0.125,conlev=0.05,...){
     lon<-seq(lonlim[1],lonlim[2],by=res)
     lat<-seq(latlim[1],latlim[2],by=res)
-    image.plot(lon,lat,mymdt,legend.width = 1.5,...)
+    image.plot(lon,lat,mymdt,legend.width = 1.5,zlim=zlim,...)
     if (addContour)
         {
             mylev=seq(zlim[1],zlim[2],by=conlev)

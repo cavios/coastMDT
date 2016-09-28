@@ -2,15 +2,18 @@ Package: coastMDT
 Title: Estimate a coastal MDT based on various input files 
 Version: 0.0.1
 Date: 2016-09-16
-Author: Karina Nielsen, Ole B. Andersen, and Per Knudsen
-Maintainer: Karina Nielsen <karni@space.dtu.dk>
+Authors@R: c(person("Karina","Nielsen",role=c("aut","cre"), email="karni@space.dtu.dk"),
+	    person("Ole B.","Andersen",role="aut"),
+            person("Per","Knudsen",role="aut"))
 Description: More about what it does (maybe more than one line)
 License: GNU LESSER GENERAL PUBLIC LICENSE
 Imports:
    ncdf4,
    smoothie,
    fields,
-   FNN
+   FNN,
+   raster,
+   sp
 URL: https://github.com/cavios/coastMDT
 LazyData: TRUE
 BugReports: https://github.com/cavios/coastMDT/issues
