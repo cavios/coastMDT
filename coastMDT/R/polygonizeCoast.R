@@ -1,13 +1,13 @@
-##' Polygonize land mask
-##' 
-##' @param mask Matrix[lon,lat] containing land/ocean values. Land has value 0
-##' @param landVal ...
-##' @importFrom raster raster rasterToPolygons
-##' @importFrom sp disaggregate
-##' @return out[longitude,latitude]
+##' Turns land mask matrix into polygons
+##'
+##' @param mask Matrix[lon,lat] with land mask. Land=0 (default) and water=1.
+##' @param landVal integeer representing the land value in the mask
+##' @importFrom raster raster rasterToPolygons 
+##' @return 
 ##' ##' @details ...
 ##' @export 
 polygonizeCoast<-function(mask,landVal=0){
+    require(sp, quietly = TRUE)
     polyCoast<-matrix(NA,nrow=nrow(mask),ncol=ncol(mask))    
     myraster<-raster(mask, ymn=1, ymx=nrow(mask), xmn=1, xmx=ncol(mask))
     test<-rasterToPolygons(myraster, dissolve = T,fun=function(x){x == landVal})
