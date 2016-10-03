@@ -1,0 +1,33 @@
+##' Extract MDT values at TG positions 
+##'
+##' @param polyCoast ...
+##' @param TG ...
+##' @param TGcorr ...
+##' @param dat ...
+##' @param lonlim ...
+##' @param latlim ...
+##' @param boxlon ...
+##' @param boxlat ... 
+##' @return ...
+##' ##' @details ...
+##' @export
+getLandComb<-function(polyCoast,TG,TGcorr,dat,lonlim,latlim,boxlon=4,boxlat=4){
+    landVal<-matrix(NA, nrow(polyCoast),ncol(polyCoast))
+    myTGCoast<-getTGCoast(polyCoast,TG,lonlim,latlim)
+    myTGCoast<-unique(myTGCoast)
+    NoPoly<-length(myTGCoast)
+    TGid<-getTGid(TG,lonlim,latlim)
+    idlon<-TGid[,1]
+    idlat<-TGid[,2]
+    landVal[TGid]<-TGcorr 
+    idPC<-which(!is.na(polyCoast),arr.ind=TRUE)
+    valPC<-polyCoast[idPC]
+    for (i in 1:NoPoly){
+        id<-which(valPC!=myTGCoast[i])
+        idPC<-idPC[id,]
+        valPC<-valPC[id]
+    }
+    boxmean<-getBoxMean(dat,idPC)
+    landVal[idPC]<-boxmean$mean
+    return(landVal)
+}
