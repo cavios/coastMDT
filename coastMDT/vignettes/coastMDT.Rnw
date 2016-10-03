@@ -1,0 +1,70 @@
+\documentclass{article}
+%% vignette index specifications need to be *after* \documentclass{}
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{basic examples of coastMDT usage}
+%\VignettePackage{coastMDT}
+%\usepackage{lineno}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[american]{babel}
+\newcommand{\R}{{\sf R}}
+\newcommand{\fixme}[1]{\textbf{\color{red} fixme: #1}}
+\newcommand{\notimpl}[1]{\emph{\color{magenta} #1}}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{alltt}
+\newcommand{\code}[1]{{\tt #1}}
+\usepackage{fancyvrb}
+\usepackage{natbib}
+\VerbatimFootnotes
+\bibliographystyle{chicago}
+
+\title{Getting started with the \code{coastMDT} package}
+\author{Karina Nielsen}
+\date{\today}
+\begin{document}
+\maketitle
+
+%\linenumbers
+
+<<setopts,echo=FALSE>>=
+require("knitr")
+opts_chunk$set(fig.width=5,fig.height=5,
+               out.width="0.8\\textwidth",echo=TRUE)
+Rver <- paste(R.version$major,R.version$minor,sep=".")
+used.pkgs <- c("coastMDT")  
+@ 
+
+
+\section{Introduction/quick start}
+\code{coastMDT} is an R package built to ...
+
+To load the package simply write: 
+
+<<echo=TRUE>>=
+library(coastMDT)
+@ 
+
+After the package is loaded the fist time we can try to run an example: 
+
+<<echo=TRUE,eval=TRUE,dev='png' >>=
+data(DTU15MSS)
+DTU15MSS[1:3, 1:3]
+image(DTU15MSS)
+@ 
+
+\section{Data}
+The package contains the following data sets
+\begin{itemize}
+  \item DTU15MSS
+  \item eigen6c4r
+  \item landmask8
+  \item difmss15eig6c4r
+  \item dDTU15MSS\_ref2003\_2007
+  \item mean2TF\_AddThis
+  \item TF2mean\_AddThis
+  \item MDT\_EGM08\_2003\_2007  
+\end{itemize}
+
+
+\end{document}

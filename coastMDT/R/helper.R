@@ -66,3 +66,15 @@ getTGid<-function(TG,lonlim,latlim){
     TGid<-as.matrix(cbind(idlon,idlat))
     return(TGid)
 }
+
+##' Find subset of Tide gauges 
+##'
+##' @param TG ...
+##' @param lonlim ...
+##' @param latlim ...
+##' @return subset of TG
+##' @export
+getSubTG<-function(TG,lonlim,latlim){
+    TGsub<-TG[TG[,3]> lonlim[1]&TG[,3]< lonlim[2]&TG[,2]> latlim[1]& TG[,2]< latlim[2],]
+    return(TGsub)
+}
