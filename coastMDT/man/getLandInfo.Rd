@@ -2,31 +2,26 @@
 % Please edit documentation in R/getLandInfo.R
 \name{getLandInfo}
 \alias{getLandInfo}
-\title{Estimate land values}
+\title{Helper function to getLandVal: Estimate land MDT values at the coastline based on altimetry}
 \usage{
-getLandInfo(mycoast, mask, dat, delta = 0, boxlon = 4, boxlat = 4)
+getLandInfo(mycoast, mask, dat, boxlon = 4, boxlat = 4)
 }
 \arguments{
-\item{mycoast}{...}
+\item{mycoast}{Matrix[N,2] with row and column values of the coast line. mycoast is the out put of helper function getCoastLine}
 
-\item{mask}{...}
+\item{mask}{Matrix[lon,lat] representing the land mask, where land=0 and water=1}
 
-\item{dat}{...}
+\item{dat}{Matrix[lon,lat] with MDT values}
 
-\item{delta}{...}
+\item{boxlon}{Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{boxlon}{}
-
-\item{boxlat}{}
-
-\item{scale}{}
+\item{boxlat}{Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 }
 \value{
-Matrix myland[longitude,latitude]
-##'
+Matrix[N,4]; row id, col id, mean MDT value, sd of MDT
 }
 \description{
-Estimate land values
+Helper function to getLandVal: Estimate land MDT values at the coastline based on altimetry
 }
 \details{
 ...

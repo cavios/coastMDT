@@ -2,25 +2,24 @@
 % Please edit documentation in R/helper.R
 \name{getBoxMean}
 \alias{getBoxMean}
-\title{Find mean value in a box}
+\title{Helper function: Find mean value in a box}
 \usage{
 getBoxMean(dat, id, boxlon = 4, boxlat = 4)
 }
 \arguments{
-\item{dat}{...}
+\item{dat}{Matrix[lon,lat] with MDT values}
 
-\item{id}{...}
+\item{id}{Matrix[N,2] with row and column id, reprecenting the center of the box}
 
-\item{boxlon}{...}
+\item{boxlon}{Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{boxlat}{...}
+\item{boxlat}{Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 }
 \value{
 list with mean and sd values
-##'
 }
 \description{
-Find mean value in a box
+Helper function: Find mean value in a box
 }
 \details{
 ...

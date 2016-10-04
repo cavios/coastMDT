@@ -2,29 +2,28 @@
 % Please edit documentation in R/getTGVal.R
 \name{getTGVal}
 \alias{getTGVal}
-\title{Extract MDT values at TG positions}
+\title{Helper function to getLandVal:}
 \usage{
 getTGVal(TG, dat, mask, lonlim, latlim, boxlon = 4, boxlat = 4)
 }
 \arguments{
-\item{TG}{...}
+\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.}
 
-\item{dat}{...}
+\item{dat}{Matrix[lon,lat] with MDT values}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{boxlon}{}
+\item{boxlon}{Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{boxlat}{}
+\item{boxlat}{Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 }
 \value{
-list with mean and sd values
-##'
+list(TGland=out,bias=bias). TGland is data frame with 4 columns; row id, col id, corrected tide gauge value, sd of boxmean value of modeled MDT
 }
 \description{
-Extract MDT values at TG positions
+Extract MDT values at TG positions and estimates a potential bias between the tide gauges and the model based MDT.
 }
 \details{
 ...

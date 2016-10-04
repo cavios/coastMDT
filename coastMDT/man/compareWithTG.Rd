@@ -7,26 +7,43 @@
 compareWithTG(TG, dat, lonlim, latlim, boxlon = 3, boxlat = 3)
 }
 \arguments{
-\item{TG}{...}
+\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauges.}
 
-\item{dat}{...}
+\item{dat}{Matrix[lon,lat] with MDT values}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{boxlon}{}
+\item{Integer.}{The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{boxlat}{}
+\item{Integer.}{The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 }
 \value{
-list with mean and sd values
-##'
+list(mean=mymean,sd=mysd,bias=bias,diff=newdif,RMS=RMS)
 }
 \description{
 Extract MDT values at TG positions
 }
 \details{
-...
+Besides the list, that is returned. A plot of the difference between the altimetry and the tide gauges MDT values is automatically generated
+}
+\examples{
+#load data
+data(landmask8) #land mask
+data(difmss15eig6c4r)
+data(MDT_EGM08_2003_2007)
+TG<-MDT_EGM08_2003_2007
+#region of interest
+lonlim<-c(275,300)
+latlim<-c(20,55)
+#sub grids
+mask<-getSubGrid(landmask8,lonlim,latlim)
+rawUS<-getSubGrid(difmss15eig6c4r,lonlim,latlim)
+idraw<-which(mask$g==0,arr.ind=TRUE)
+rawUS$g[idraw]<-NA
+TGsub<-getSubTG(TG,lonlim,latlim)
+#Compare with tide gauges
+res<-compareWithTG(TGsub,rawUS$g,lonlim,latlim)
 }
 

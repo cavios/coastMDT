@@ -4,27 +4,26 @@
 \alias{iterativeAveSmoother}
 \title{Iterative box filter}
 \usage{
-iterativeAveSmoother(dat, mask, TGmat, latlim, radius = 0.15/0.83, nit = 10,
-  dlat = 0.125)
+iterativeAveSmoother(dat, mask, land, latlim, radius = 0.15/0.83, nit = 10,
+  res = 0.125)
 }
 \arguments{
 \item{dat}{Matrix[lon,lat] to be filtered}
 
-\item{mask}{Matrix[lon,lat] containing land/ocean values. Land has value 0}
+\item{mask}{Matrix[lon,lat] containing land/ocean values. Land=0, water=1.}
 
-\item{TGmat}{Matrix[lat,lon] containing tide gauge values}
+\item{land}{Matrix[lat,lon] containing land values}
 
-\item{latlim}{Vector of length 2, c(lat1,lat2), containing latitude limits of the matrix dat}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{radius}{Filter radius}
+\item{radius}{Filter radius. Default is radius=0.15/0.83}
 
-\item{nit}{Number of iterations of the box filter}
+\item{nit}{Number of iterations of the box filter. Default is nit=10}
 
-\item{dlat}{Grid spacing of the matrix dat}
+\item{dlat}{Grid spacing of the matrix dat. Default is dlat=0.125}
 }
 \value{
-out[longitude,latitude]
-##'
+Matrix[lat,lon] with filtered MDT values.
 }
 \description{
 This function \code{iterativeAveSmoother} ........

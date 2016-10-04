@@ -2,7 +2,7 @@
 % Please edit documentation in R/getCoastLine.R
 \name{getCoastLine}
 \alias{getCoastLine}
-\title{Extract sub grid}
+\title{Helper function to getLandVal: Extract the coast line from the land mask}
 \usage{
 getCoastLine(mask, land = 0, water = 1)
 }
@@ -17,7 +17,7 @@ getCoastLine(mask, land = 0, water = 1)
 List with the elements;  matrix g[lon,lat], which contains the location of the land value which has a water neighbor. Matrix id which contains two columns; row no and col no of the matrix g where a land value is identified as coast.
 }
 \description{
-Extract sub grid
+Helper function to getLandVal: Extract the coast line from the land mask
 }
 \details{
 ...

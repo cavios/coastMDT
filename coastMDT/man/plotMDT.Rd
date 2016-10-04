@@ -4,25 +4,25 @@
 \alias{plotMDT}
 \title{Plot MDT grid}
 \usage{
-plotMDT(mymdt, zlim, lonlim, latlim, addContour = TRUE, res = 0.125,
+plotMDT(dat, zlim, lonlim, latlim, addContour = TRUE, res = 0.125,
   conlev = 0.05, ...)
 }
 \arguments{
-\item{mymdt}{...}
+\item{dat}{Matrix[lon,lat] with MDT values.}
 
-\item{zlim}{...}
+\item{zlim}{Range of the MDT values given as a  Vector of length 2.}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{addContour}{...}
+\item{addContour}{Bolean; To add a contour plot. Default is TRUE}
 
-\item{res}{...}
+\item{res}{Grid spacing}
 
-\item{conlev}{...}
+\item{conlev}{The spacing between contour lines given in meters. The default is 0.05.}
 
-\item{...}{...}
+\item{...}{Additional arguments to image.plot from fields}
 }
 \description{
 Plot MDT grid

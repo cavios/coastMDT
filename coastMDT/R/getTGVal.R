@@ -1,13 +1,15 @@
-##' Extract MDT values at TG positions 
+##' Helper function to getLandVal:
 ##'
-##' @param TG ...
-##' @param dat ...
-##' @param lonlim ...
-##' @param latlim ...
-##' @param boxlon
-##' @param boxlat 
-##' @return list with mean and sd values
-##' ##' @details ...
+##' Extract MDT values at TG positions and estimates a potential bias between the tide gauges and the model based MDT.  
+##'
+##' @param TG  Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge. 
+##' @param dat Matrix[lon,lat] with MDT values
+##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
+##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
+##' @param boxlon Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast. 
+##' @param boxlat Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.  
+##' @return list(TGland=out,bias=bias). TGland is data frame with 4 columns; row id, col id, corrected tide gauge value, sd of boxmean value of modeled MDT
+##' @details ...
 ##' @export
 getTGVal<-function(TG,dat,mask,lonlim,latlim,boxlon=4,boxlat=4){
     idland<-which(mask==0,arr.ind=TRUE)
@@ -24,12 +26,4 @@ getTGVal<-function(TG,dat,mask,lonlim,latlim,boxlon=4,boxlat=4){
 
     out<-cbind(TGid,TG=new,sd=boxmean$sd)
     return(list(TGland=out,bias=bias))
-    
-    #landVal<-new
-    #data<-cbind(x=idlon,y=idlat)
-    #query <- cbind(x=idland[,1], y=idland[,2])
-    #nns <- get.knnx(data, query, k=1)
-    #myland<-matrix(NA,nrow(mask),ncol(mask))
-    #myland[idland]<-landVal[nns$nn.index]
-    #return(list(mean=boxmean$mean,sd=boxmean$sd,id=TGid,TG=new,grid=myland,bias=bias))      
 }

@@ -7,14 +7,14 @@
 getTGid(TG, lonlim, latlim)
 }
 \arguments{
-\item{TG}{...}
+\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 }
 \value{
-TGid
+Matrix[N,2] with row and coulmn id for the tide gauges
 }
 \description{
 Find row and col id of Tide gauges

@@ -2,34 +2,34 @@
 % Please edit documentation in R/getLandComb.R
 \name{getLandComb}
 \alias{getLandComb}
-\title{Extract MDT values at TG positions}
+\title{Helper funtion to getLandVal: Finds land values based on tide gauges and altimetry}
 \usage{
 getLandComb(polyCoast, TG, TGcorr, dat, lonlim, latlim, boxlon = 4,
   boxlat = 4)
 }
 \arguments{
-\item{polyCoast}{...}
+\item{polyCoast}{Matrix[lon,lat], the out put of the function polygonizeCoast. The matrix contains the coastlines of the region defined by lonlim and latlim, where the integer values represents the coast id.}
 
-\item{TG}{...}
+\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.}
 
-\item{TGcorr}{...}
+\item{TGcorr}{Vector with bias corrected tide gauge values. Obtained from the helper function getTGVal.}
 
-\item{dat}{...}
+\item{dat}{Matrix[lon,lat] with MDT values}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{boxlon}{...}
+\item{boxlon}{Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{boxlat}{...}
+\item{boxlat}{Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 }
 \value{
-...
+Matrix[lon,lat] with MDT land values at the coast line, defined by polyCoast
 ##'
 }
 \description{
-Extract MDT values at TG positions
+Helper funtion to getLandVal: Finds land values based on tide gauges and altimetry
 }
 \details{
 ...

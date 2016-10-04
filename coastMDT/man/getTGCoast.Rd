@@ -2,39 +2,38 @@
 % Please edit documentation in R/getTGCoast.R, R/helper.R
 \name{getTGCoast}
 \alias{getTGCoast}
-\title{Helper function: Identify Coast lines with tide gauges}
+\title{Helper function to getLandVal: Identify Coast lines with tide gauges}
 \usage{
 getTGCoast(polyCoast, TG, lonlim, latlim)
 
 getTGCoast(polyCoast, TG, lonlim, latlim)
 }
 \arguments{
-\item{polyCoast}{...}
+\item{polyCoast}{Matrix[lon,lat], the out put of the function polygonizeCoast. The matrix contains the coastlines of the region defined by lonlim and latlim, where the integer values represents the coast id.}
 
-\item{TG}{...}
+\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees}
 
-\item{polyCoast}{...}
+\item{polyCoast}{Matrix[lon,lat], the out put of the function polygonizeCoast. The matrix contains the coastlines of the region defined by lonlim and latlim, where the integer values represents the coast id.}
 
-\item{TG}{...}
+\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 }
 \value{
-list with mean and sd values
-##'
+Vector with coast id for the tide gauges.
 
 coastid for each TG
 }
 \description{
-Helper function: Identify Coast lines with tide gauges
+Helper function to getLandVal: Identify Coast lines with tide gauges
 
-Find index of coast line with Tide gauges
+Helper function: Find index of coast line with Tide gauges
 }
 \details{
 ...

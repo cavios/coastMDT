@@ -1,31 +1,19 @@
-##' Estimate land values
+##' Helper function to getLandVal: Estimate land MDT values at the coastline based on altimetry
 ##'
-##' @param mycoast ...
-##' @param mask ...
-##' @param dat ...
-##' @param delta ...
-##' @param boxlon
-##' @param boxlat
-##' @param scale
+##' @param mycoast Matrix[N,2] with row and column values of the coast line. mycoast is the out put of helper function getCoastLine 
+##' @param mask Matrix[lon,lat] representing the land mask, where land=0 and water=1
+##' @param dat Matrix[lon,lat] with MDT values 
+##' @param boxlon Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast. 
+##' @param boxlat Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast. 
 ##' @importFrom FNN get.knnx 
-##' @return Matrix myland[longitude,latitude]
-##' ##' @details ...
+##' @return Matrix[N,4]; row id, col id, mean MDT value, sd of MDT 
+##' @details ...
 ##' @export
-getLandInfo<-function(mycoast,mask,dat,delta=0,boxlon=4,boxlat=4){
+getLandInfo<-function(mycoast,mask,dat,boxlon=4,boxlat=4){
     idland<-which(mask==0,arr.ind=TRUE)
     dat[idland]<-NA
     boxmean<-getBoxMean(dat,mycoast$id)
     out<-as.matrix(cbind(mycoast$id,mean=boxmean$mean+delta,sd=boxmean$sd))
     out<-na.omit(out)
     return(out)
-    
-    #landVal<-out[,3]+delta
-    #data<-cbind(x=out[,1],y=out[,2])
-    #query <- cbind(x=idland[,1], y=idland[,2])
-    #nns <- get.knnx(data, query, k=1)
-    #myland<-matrix(NA,nrow(mask),ncol(mask))
-    #sdland<-matrix(NA,nrow(mask),ncol(mask))
-    #sdland[mycoast$id]<-boxmean$sd
-    #myland[idland]<-landVal[nns$nn.index]
-    #return(list(mean=myland,sd=sdland))
 }

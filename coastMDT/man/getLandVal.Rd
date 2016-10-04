@@ -2,40 +2,55 @@
 % Please edit documentation in R/getLandVal.R
 \name{getLandVal}
 \alias{getLandVal}
-\title{Extract MDT values at TG positions}
+\title{Estimates MDT land values based based on altimetry, tide gauges of both}
 \usage{
 getLandVal(dat, TG, mask, lonlim, latlim, type = "alt", intMethod = "lin",
-  boxlon = 4, boxlat = 4, delta = 0)
+  boxlon = 4, boxlat = 4)
 }
 \arguments{
-\item{dat}{...}
+\item{dat}{Matrix[lon,lat] with MDT values}
 
-\item{TG}{...}
+\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge}
 
-\item{mask}{}
+\item{mask}{Matrix[lon,lat] representing the land mask, where land=0 and water=1}
 
-\item{lonlim}{...}
+\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees}
 
-\item{latlim}{...}
+\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees}
 
-\item{type}{...}
+\item{type}{Character string representing the data to be used when the land values are estimated. type="tg": tide gauge data is used to estimate the MDT land values, type="alt": altimetry data is used, and type="both": both altimetry and tide gauge data is used.}
 
-\item{intMethod}{...}
+\item{intMethod}{Character string describing the interpolation method used. "lin": linear interpolation and "nn": nearest neighbor interpolation}
 
-\item{boxlon}{...}
+\item{boxlon}{Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{boxlat}{...}
-
-\item{delta}{...}
+\item{boxlat}{Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 }
 \value{
-matrix with land values
-##'
+Matrix[lon,lat] with land values
 }
 \description{
-Extract MDT values at TG positions
+Estimates MDT land values based based on altimetry, tide gauges of both
 }
 \details{
 ...
+}
+\examples{
+#load data
+data(landmask8) #land mask
+data(difmss15eig6c4r)
+data(MDT_EGM08_2003_2007)
+TG<-MDT_EGM08_2003_2007
+#region of interest
+lonlim<-c(275,300)
+latlim<-c(20,55)
+#sub grids
+mask<-getSubGrid(landmask8,lonlim,latlim)
+rawUS<-getSubGrid(difmss15eig6c4r,lonlim,latlim)
+idraw<-which(mask$g==0,arr.ind=TRUE)
+rawUS$g[idraw]<-NA
+TGsub<-getSubTG(TG,lonlim,latlim)
+#Estimation of land data
+mylandTG<-getLandVal(rawUS$g,TGsub,mask$g,lonlim,latlim,type="tg",intMethod="lin")
 }
 

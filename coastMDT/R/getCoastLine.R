@@ -1,4 +1,4 @@
-##' Extract sub grid 
+##' Helper function to getLandVal: Extract the coast line from the land mask 
 ##' @param mask Matrix[lon,lat] with land mask values. 
 ##' @param land Integer value for land. Default is 0.
 ##' @param water Integer value for land. Default is 0.

@@ -1,9 +1,9 @@
-##' Turns land mask matrix into polygons
+##' Helper function to getLandVal: Turns land mask matrix into polygons
 ##'
 ##' @param mask Matrix[lon,lat] with land mask. Land=0 (default) and water=1.
 ##' @param landVal integeer representing the land value in the mask
 ##' @importFrom raster raster rasterToPolygons 
-##' @return 
+##' @return Matrix[lon,lat] whith coast line ids
 ##' ##' @details ...
 ##' @export 
 polygonizeCoast<-function(mask,landVal=0){

@@ -2,7 +2,7 @@
 % Please edit documentation in R/polygonizeCoast.R
 \name{polygonizeCoast}
 \alias{polygonizeCoast}
-\title{Turns land mask matrix into polygons}
+\title{Helper function to getLandVal: Turns land mask matrix into polygons}
 \usage{
 polygonizeCoast(mask, landVal = 0)
 }
@@ -12,10 +12,11 @@ polygonizeCoast(mask, landVal = 0)
 \item{landVal}{integeer representing the land value in the mask}
 }
 \value{
+Matrix[lon,lat] whith coast line ids
 ##'
 }
 \description{
-Turns land mask matrix into polygons
+Helper function to getLandVal: Turns land mask matrix into polygons
 }
 \details{
 ...

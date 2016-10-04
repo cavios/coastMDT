@@ -1,14 +1,31 @@
 ##' Extract MDT values at TG positions 
 ##'
-##' @param TG ...
-##' @param dat ...
-##' @param lonlim ...
-##' @param latlim ...
-##' @param boxlon
-##' @param boxlat 
-##' @return list with mean and sd values
-##' ##' @details ...
+##' @param TG Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauges. 
+##' @param dat Matrix[lon,lat] with MDT values
+##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
+##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
+##' @param Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.
+##' @param Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.
+##' @return list(mean=mymean,sd=mysd,bias=bias,diff=newdif,RMS=RMS)
+##' @details Besides the list, that is returned. A plot of the difference between the altimetry and the tide gauges MDT values is automatically generated  
 ##' @export
+##' @examples
+##' #load data
+##' data(landmask8) #land mask
+##' data(difmss15eig6c4r)
+##' data(MDT_EGM08_2003_2007)
+##' TG<-MDT_EGM08_2003_2007
+##' #region of interest
+##' lonlim<-c(275,300)
+##' latlim<-c(20,55)
+##' #sub grids
+##' mask<-getSubGrid(landmask8,lonlim,latlim)
+##' rawUS<-getSubGrid(difmss15eig6c4r,lonlim,latlim)
+##' idraw<-which(mask$g==0,arr.ind=TRUE)
+##' rawUS$g[idraw]<-NA
+##' TGsub<-getSubTG(TG,lonlim,latlim)
+##' #Compare with tide gauges
+##' res<-compareWithTG(TGsub,rawUS$g,lonlim,latlim)
 compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3){
     idlon<-floor((TG[,3]-lonlim[1])/0.125)+1
     idlat<-floor((TG[,2]-latlim[1])/0.125)+1
