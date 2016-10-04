@@ -29,7 +29,16 @@ getLandVal<-function(dat,TG,mask,lonlim,latlim,type="alt",intMethod="lin",boxlon
         out<-getTGVal(TG,dat,mask,lonlim,latlim)
         myland<-out$TGland
     }
-    else cat("nothing happens yet\n")
+    else{
+        #this needs to be improoved at some point
+        myPolyCoast<-polygonizeCoast(mask)
+        TGcoast<-getTGCoast(myPolyCoast,TG,lonlim,latlim)
+        TGval<-getTGVal(TG,dat,mask,lonlim,latlim)
+        MDTland<-getLandComb(myPolyCoast,TG,TGval$TGland[,3],dat,lonlim,latlim)
+        idland2<-which(!is.na(MDTland),arr.ind=TRUE)
+        landval<-MDTland[idland2]
+        myland<-cbind(idland2[,1],idland2[,2],landval)
+}
 
     #interpolation
     idlon<-myland[,1]

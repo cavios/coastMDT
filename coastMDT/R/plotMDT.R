@@ -11,6 +11,10 @@
 ##' @details ...
 ##' @export
 plotMDT<-function(mymdt,zlim,lonlim,latlim,addContour=TRUE,res=0.125,conlev=0.05,...){
+    lonlim[1]<-lonlim[1]+(res/2)
+    lonlim[2]<-lonlim[2]-(res/2)
+    latlim[1]<-latlim[1]+(res/2)
+    latlim[2]<-latlim[2]-(res/2)
     lon<-seq(lonlim[1],lonlim[2],by=res)
     lat<-seq(latlim[1],latlim[2],by=res)
     image.plot(lon,lat,mymdt,legend.width = 1.5,zlim=zlim,...)
