@@ -4,8 +4,8 @@
 \alias{getSubGrid}
 \title{Extract sub grid}
 \usage{
-getSubGrid(grid, lonlim, latlim, glonlim = c(0, 360), glatlim = c(-90, 90),
-  res = 0.125)
+getSubGrid(grid, lonlim, latlim, res = 0.125, glonlim = c(0 + (res/2), 360 -
+  (res/2)), glatlim = c(-90 + (res/2), 90 - (res/2)))
 }
 \arguments{
 \item{grid}{Input grid[longitude,latitude] of type matrix.}
@@ -14,11 +14,11 @@ getSubGrid(grid, lonlim, latlim, glonlim = c(0, 360), glatlim = c(-90, 90),
 
 \item{latlim}{Vector of length two containing the latitude limits of the sub grid.}
 
+\item{res}{The resolution of the input grit in decimal degrees.}
+
 \item{glonlim}{Vector of length two containing the longitude limits of the input grid. The default is c(0,360).}
 
 \item{glatlim}{Vector of length two containing the latitude limits of the input grid. The default is c(-90,90).}
-
-\item{res}{The resolution of the input grit in decimal degrees.}
 }
 \value{
 List with the elements;  matrix g (sub grid), vector lon (longitudes), vector lat (latitudes)
@@ -32,7 +32,7 @@ Extract sub grid
 }
 \examples{
 data(landmask8_anyland)
-out<-getSubGrid(landmask8_anyland,c(280,300),c(30,60),glonlim=c(0,360-0.125),glatlim=c(-90,90-0.125))
+out<-getSubGrid(landmask8_anyland,c(280,300),c(30,60))
 image(out$lon,out$lat,out$g)
 }
 

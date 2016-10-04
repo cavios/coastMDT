@@ -10,9 +10,13 @@
 ##' @export
 ##' @examples
 ##' data(landmask8_anyland)
-##' out<-getSubGrid(landmask8_anyland,c(280,300),c(30,60),glonlim=c(0,360-0.125),glatlim=c(-90,90-0.125))
+##' out<-getSubGrid(landmask8_anyland,c(280,300),c(30,60))
 ##' image(out$lon,out$lat,out$g)
-getSubGrid<-function(grid,lonlim,latlim,glonlim=c(0,360),glatlim=c(-90,90),res=0.125){
+getSubGrid<-function(grid,lonlim,latlim,res=0.125,glonlim=c(0+(res/2),360-(res/2)),glatlim=c(-90+(res/2),90-(res/2))){
+    lonlim[1]<-lonlim[1]+(res/2)
+    lonlim[2]<-lonlim[2]-(res/2)
+    latlim[1]<-latlim[1]+(res/2)
+    latlim[2]<-latlim[2]-(res/2)
     lat<-seq(glatlim[1],glatlim[2],by=res)
     lon<-seq(glonlim[1],glonlim[2],by=res)
     ilat1<-which(lat==latlim[1])
@@ -24,3 +28,4 @@ getSubGrid<-function(grid,lonlim,latlim,glonlim=c(0,360),glatlim=c(-90,90),res=0
     g<-grid[ilon1:ilon2,ilat1:ilat2]
     return(list(g=g,lat=nlat,lon=nlon))
 }
+
