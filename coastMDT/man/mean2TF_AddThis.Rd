@@ -5,17 +5,12 @@
 mean2TF_AddThis
 }
 \description{
-to be written
+Grid to go from mean tide to tide free. The grid should be added. mean2TF_AddThis is a 2880 x 1440 matrix.
 }
+
 \usage{data("mean2TF_AddThis")}
 \format{
-  A data frame with 8476 observations on the following 4 variables.
-  \describe{
-    \item{\code{height}}{a numeric vector}
-    \item{\code{lake}}{a numeric vector}
-    \item{\code{track}}{a numeric vector}
-    \item{\code{time}}{a numeric vector}
-  }
+ A matrix[lon,lat] of dimension 2880 x 1440 
 }
 \details{
 ...
@@ -24,7 +19,7 @@ to be written
 ...
 }
 \references{
-...
+Created by Ole B. Andersen \email{oa@space.dtu.dk}
 }
 \examples{
 data(mean2TF_AddThis)

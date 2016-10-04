@@ -3,7 +3,7 @@
 \docType{data}
 \title{landmask8}
 \description{
-landmasks from GEBCO2014, on native grid and on 1/8 degree grid.
+landmasks from GEBCO2014, on a 1/8 degree grid.
   
 landmask8 is a 2880 x 1440 matrix
 
@@ -17,13 +17,6 @@ value is 1 for any cell which is 50% or more ocean according to the gebco mask
 isolated ocean points have been removed (excluding Black Sea and Sea of Marmara)
 
 
-first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree
-cells are all 1/8 by 1/8 degree
-order is east to west, then south to north
-
-value is 1 for any cell which is contains any ocean according to the gebco mask
-         0 for any cell which is entirely land land
- 
 }
 \usage{data(landmask8)}
 \format{

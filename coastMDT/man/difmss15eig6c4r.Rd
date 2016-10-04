@@ -5,17 +5,16 @@
 difmss15eig6c4r
 }
 \description{
-to be written
+difmss15eig6c4r is an unfiltered MDT based on the MSS DTU15 and the
+geoid model Eigen6c4r. difmss15eig6c4r is a 2880 x 1440 matrix.
+
+The first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree
+cells are all 1/8 by 1/8 degree
+order is east to west, then south to north
 }
 \usage{data("difmss15eig6c4r")}
 \format{
-  A data frame with 8476 observations on the following 4 variables.
-  \describe{
-    \item{\code{height}}{a numeric vector}
-    \item{\code{lake}}{a numeric vector}
-    \item{\code{track}}{a numeric vector}
-    \item{\code{time}}{a numeric vector}
-  }
+  A matrix[lon,lat] of dimension 2880 x 1440
 }
 \details{
 ...
@@ -24,7 +23,7 @@ to be written
 ...
 }
 \references{
-...
+Created by Per Knudsen
 }
 \examples{
 data(difmss15eig6c4r)
