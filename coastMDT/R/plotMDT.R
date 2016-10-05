@@ -15,12 +15,13 @@ plotMDT<-function(dat,zlim,lonlim,latlim,addContour=TRUE,res=0.125,conlev=0.05,.
     lonlim[2]<-lonlim[2]-(res/2)
     latlim[1]<-latlim[1]+(res/2)
     latlim[2]<-latlim[2]-(res/2)
-    lon<-seq(lonlim[1],lonlim[2],by=res)
     lat<-seq(latlim[1],latlim[2],by=res)
-    image.plot(lon,lat,mymdt,legend.width = 1.5,zlim=zlim,...)
+    if (lonlim[1]>lonlim[2]) lon<-seq(lonlim[1]-360,lonlim[2],by=res)
+    else lon<-seq(lonlim[1],lonlim[2],by=res)
+    image.plot(lon,lat,dat,legend.width = 1.5,zlim=zlim,...)
     if (addContour)
         {
             mylev=seq(zlim[1],zlim[2],by=conlev)
-            contour(lon,lat,mymdt, add=TRUE,levels=mylev)
+            contour(lon,lat,dat, add=TRUE,levels=mylev)
         }
 }

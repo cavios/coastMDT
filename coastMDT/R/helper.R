@@ -61,6 +61,7 @@ getTGCoast<-function(polyCoast,TG,lonlim,latlim){
 ##' @return Matrix[N,2] with row and coulmn id for the tide gauges
 ##' @export
 getTGid<-function(TG,lonlim,latlim){
+    if(lonlim[1]>lonlim[2]) lonlim[1]<-lonlim[1]-360   
     idlon<-floor((TG[,3]-lonlim[1])/0.125)+1
     idlat<-floor((TG[,2]-latlim[1])/0.125)+1
     TGid<-as.matrix(cbind(idlon,idlat))
@@ -75,6 +76,14 @@ getTGid<-function(TG,lonlim,latlim){
 ##' @return subset of TG
 ##' @export
 getSubTG<-function(TG,lonlim,latlim){
-    TGsub<-TG[TG[,3]> lonlim[1]&TG[,3]< lonlim[2]&TG[,2]> latlim[1]& TG[,2]< latlim[2],]
+     if (lonlim[1]>lonlim[2]){
+         lonlim[1]<-lonlim[1]-360
+         id<-which(TG[,3]>180)
+         TG[id,3]<-TG[id,3]-360
+         TGsub<-TG[TG[,3]> lonlim[1]&TG[,3]< lonlim[2]&TG[,2]> latlim[1]& TG[,2]< latlim[2],]
+     }else{
+     
+         TGsub<-TG[TG[,3]> lonlim[1]&TG[,3]< lonlim[2]&TG[,2]> latlim[1]& TG[,2]< latlim[2],]
+     }
     return(TGsub)
 }

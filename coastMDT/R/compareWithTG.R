@@ -27,11 +27,11 @@
 ##' #Compare with tide gauges
 ##' res<-compareWithTG(TGsub,rawUS$g,lonlim,latlim)
 compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3){
-    idlon<-floor((TG[,3]-lonlim[1])/0.125)+1
-    idlat<-floor((TG[,2]-latlim[1])/0.125)+1
-    TGid<-as.matrix(cbind(idlon,idlat))
+    TGid<-getTGid(TG,lonlim,latlim)
+    idlon<-TGid[,1]
+    idlat<-TGid[,2]
     NR<-nrow(TGid)
-     mymean<-rep(NA,NR)
+    mymean<-rep(NA,NR)
     mysd<-rep(NA,NR)
     for (i in 1:NR){
         if(idlon[i]>boxlon & idlon[i]<dim(dat)[1]-boxlon & idlat[i]>=boxlat&idlat[i]<dim(dat)[2]-boxlat)

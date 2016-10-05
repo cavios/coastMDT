@@ -10,7 +10,7 @@ getSubGrid(grid, lonlim, latlim, res = 0.125, glonlim = c(0 + (res/2), 360 -
 \arguments{
 \item{grid}{Input grid[longitude,latitude] of type matrix.}
 
-\item{lonlim}{Vector of length two containing the longitude limits of the sub grid.}
+\item{lonlim}{Vector of length two containing the longitude limits of the sub grid. The limits must be given with the smallest longitude first for example c(270,300), except when the 0 longitude id crossed. In this case for example c(355,10). Acceptable values are between 0 and 360.}
 
 \item{latlim}{Vector of length two containing the latitude limits of the sub grid.}
 
@@ -31,8 +31,8 @@ Extract sub grid
 ...
 }
 \examples{
-data(landmask8_anyland)
-out<-getSubGrid(landmask8_anyland,c(280,300),c(30,60))
+data(landmask8)
+out<-getSubGrid(landmask8,c(280,300),c(30,60))
 image(out$lon,out$lat,out$g)
 }
 
