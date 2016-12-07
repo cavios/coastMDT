@@ -22,6 +22,7 @@ all:
 
 doc-update: $(PACKAGE)/R/*.R
 	echo "library(roxygen2);roxygenize(\"$(PACKAGE)\",roclets = c(\"collate\", \"rd\"))" | $(R) --slave
+	mv coastMDT.pdf $(PACKAGE)/doc/coastMDT_userManual.pdf
 	@touch doc-update
 
 vignette-update: $(PACKAGE)/vignettes/*.Rnw
