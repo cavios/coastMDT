@@ -26,7 +26,7 @@ doc-update: $(PACKAGE)/R/*.R
 
 vignette-update: $(PACKAGE)/vignettes/*.Rnw
 	cd $(PACKAGE)/vignettes; echo "library(knitr);knit2pdf('coastMDT.Rnw')" | $(R) --slave
-	 mv $(PACKAGE)/vignettes/coastMDT.pdf $(PACKAGE)/inst/doc
+	 mv $(PACKAGE)/vignettes/coastMDT.pdf $(PACKAGE)/doc/coastMDT_tutorial.pdf
 	@touch vignette-update
 
 namespace-update :: $(PACKAGE)/NAMESPACE
