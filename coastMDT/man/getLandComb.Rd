@@ -26,7 +26,6 @@ getLandComb(polyCoast, TG, TGcorr, dat, lonlim, latlim, boxlon = 4,
 }
 \value{
 Matrix[lon,lat] with MDT land values at the coast line, defined by polyCoast
-##'
 }
 \description{
 Helper funtion to getLandVal: Finds land values based on tide gauges and altimetry

@@ -1,12 +1,18 @@
 ##' Extract MDT values at TG positions 
 ##'
+##' The function extracts MDT values at the position of the tide gauges, and compares the MDT values of the field with MDT values based on the tide gauges.  
 ##' @param TG Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauges. 
 ##' @param dat Matrix[lon,lat] with MDT values
 ##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
-##' @param Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.
-##' @param Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.
-##' @return list(mean=mymean,sd=mysd,bias=bias,diff=newdif,RMS=RMS)
+##' @param boxlon The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.
+##' @param boxlat The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.
+##' @return A list that includes:
+##' mean: The mean values of the field in the box, defined by boxlon and boxlat at each tide gauge position.
+##' sd: The standard deviation of the field in the box, defined by boxlon and boxlat at each tide gauge position.
+##' bias: The bias between the mean field values and the tide gauge MDT values.
+##' diff: The difference between the mean field values and the bias corrected tide gauge MDT values
+##' RMS: The RMS of the mean field values and the tide gauge MDT values
 ##' @details Besides the list, that is returned. A plot of the difference between the altimetry and the tide gauges MDT values is automatically generated  
 ##' @export
 ##' @examples
@@ -45,8 +51,8 @@ compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3){
     }
     mydif<-TG[,4]-mymean
     bias<-median(mydif,na.rm=TRUE) #this could be improved
-    if(bias > 0) new<-TG[,4]+bias
-    else new<-TG[,4]-bias
+    if(bias > 0) new<-TG[,4]-bias
+    else new<-TG[,4]+abs(bias)
     newdif<-mymean-new
     idna<-which(is.na(newdif))
     RMS<-sqrt(sum(newdif[-idna]^2)/length(newdif[-idna]))

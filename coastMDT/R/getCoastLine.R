@@ -1,7 +1,7 @@
 ##' Helper function to getLandVal: Extract the coast line from the land mask 
 ##' @param mask Matrix[lon,lat] with land mask values. 
 ##' @param land Integer value for land. Default is 0.
-##' @param water Integer value for land. Default is 0.
+##' @param water Integer value for land. Default is 1.
 ##' @return List with the elements;  matrix g[lon,lat], which contains the location of the land value which has a water neighbor. Matrix id which contains two columns; row no and col no of the matrix g where a land value is identified as coast.  
 ##' @details ...
 ##' @export

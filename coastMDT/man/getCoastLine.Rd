@@ -11,7 +11,7 @@ getCoastLine(mask, land = 0, water = 1)
 
 \item{land}{Integer value for land. Default is 0.}
 
-\item{water}{Integer value for land. Default is 0.}
+\item{water}{Integer value for land. Default is 1.}
 }
 \value{
 List with the elements;  matrix g[lon,lat], which contains the location of the land value which has a water neighbor. Matrix id which contains two columns; row no and col no of the matrix g where a land value is identified as coast.

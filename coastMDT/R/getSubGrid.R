@@ -4,7 +4,7 @@
 ##' @param latlim Vector of length two containing the latitude limits of the sub grid.
 ##' @param glonlim Vector of length two containing the longitude limits of the input grid. The default is c(0,360).
 ##' @param glatlim Vector of length two containing the latitude limits of the input grid. The default is c(-90,90).
-##' @param res The resolution of the input grit in decimal degrees.
+##' @param res The resolution of the input grid in decimal degrees.
 ##' @return List with the elements;  matrix g (sub grid), vector lon (longitudes), vector lat (latitudes) 
 ##' ##' @details ...
 ##' @export

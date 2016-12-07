@@ -13,7 +13,7 @@ getLandInfo<-function(mycoast,mask,dat,boxlon=4,boxlat=4){
     idland<-which(mask==0,arr.ind=TRUE)
     dat[idland]<-NA
     boxmean<-getBoxMean(dat,mycoast$id)
-    out<-as.matrix(cbind(mycoast$id,mean=boxmean$mean+delta,sd=boxmean$sd))
+    out<-as.matrix(cbind(mycoast$id,mean=boxmean$mean,sd=boxmean$sd))
     out<-na.omit(out)
     return(out)
 }

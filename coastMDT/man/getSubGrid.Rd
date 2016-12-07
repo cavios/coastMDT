@@ -14,7 +14,7 @@ getSubGrid(grid, lonlim, latlim, res = 0.125, glonlim = c(0 + (res/2), 360 -
 
 \item{latlim}{Vector of length two containing the latitude limits of the sub grid.}
 
-\item{res}{The resolution of the input grit in decimal degrees.}
+\item{res}{The resolution of the input grid in decimal degrees.}
 
 \item{glonlim}{Vector of length two containing the longitude limits of the input grid. The default is c(0,360).}
 

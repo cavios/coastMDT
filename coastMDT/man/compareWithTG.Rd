@@ -15,15 +15,20 @@ compareWithTG(TG, dat, lonlim, latlim, boxlon = 3, boxlat = 3)
 
 \item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
-\item{Integer.}{The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
+\item{boxlon}{The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{Integer.}{The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
+\item{boxlat}{The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 }
 \value{
-list(mean=mymean,sd=mysd,bias=bias,diff=newdif,RMS=RMS)
+A list that includes:
+mean: The mean values of the field in the box, defined by boxlon and boxlat at each tide gauge position.
+sd: The standard deviation of the field in the box, defined by boxlon and boxlat at each tide gauge position.
+bias: The bias between the mean field values and the tide gauge MDT values.
+diff: The difference between the mean field values and the bias corrected tide gauge MDT values
+RMS: The RMS of the mean field values and the tide gauge MDT values
 }
 \description{
-Extract MDT values at TG positions
+The function extracts MDT values at the position of the tide gauges, and compares the MDT values of the field with MDT values based on the tide gauges.
 }
 \details{
 Besides the list, that is returned. A plot of the difference between the altimetry and the tide gauges MDT values is automatically generated

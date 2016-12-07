@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper.R
 \name{getTGid}
 \alias{getTGid}
-\title{Find row and col id of Tide gauges}
+\title{Helper function: Finds row and col id of Tide gauges}
 \usage{
 getTGid(TG, lonlim, latlim)
 }
@@ -17,6 +17,6 @@ getTGid(TG, lonlim, latlim)
 Matrix[N,2] with row and coulmn id for the tide gauges
 }
 \description{
-Find row and col id of Tide gauges
+Helper function: Finds row and col id of Tide gauges
 }
 

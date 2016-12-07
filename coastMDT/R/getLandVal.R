@@ -32,21 +32,22 @@
 ##' #Estimation of land data
 ##' mylandTG<-getLandVal(rawUS$g,TGsub,mask$g,lonlim,latlim,type="tg",intMethod="lin")
 ##' 
-getLandVal<-function(dat,TG,mask,lonlim,latlim,type="alt",intMethod="lin",boxlon=4,boxlat=4){
+getLandVal<-function(dat,mask,lonlim,latlim,TG=NULL,type="alt",intMethod="lin",boxlon=4,boxlat=4){
     if (!type %in% c("alt", "tg","both")) stop(paste("unknown type:", type))
     if (!intMethod %in% c("lin", "nn")) stop(paste("unknown intMethod:", intMethod))
     landMat<-matrix(NA,nrow(mask),ncol(mask))
     idland<-which(mask==0,arr.ind=TRUE)
+    dat[idland]<-NA
     
     if(type=="alt"){
         mycoast<-getCoastLine(mask)
         myland<-getLandInfo(mycoast,mask,dat)
     }
-    else if(type=="tg"){
+    else if(type=="tg" & !is.null(TG)){
         out<-getTGVal(TG,dat,mask,lonlim,latlim)
         myland<-out$TGland
     }
-    else{
+    else if(type=="both" & !is.null(TG)){
         #this needs to be improoved at some point
         myPolyCoast<-polygonizeCoast(mask)
         TGcoast<-getTGCoast(myPolyCoast,TG,lonlim,latlim)
@@ -55,7 +56,8 @@ getLandVal<-function(dat,TG,mask,lonlim,latlim,type="alt",intMethod="lin",boxlon
         idland2<-which(!is.na(MDTland),arr.ind=TRUE)
         landval<-MDTland[idland2]
         myland<-cbind(idland2[,1],idland2[,2],landval)
-}
+    }
+    else{ stop(paste("Tide gauge file not specified"))}
 
     #interpolation
     idlon<-myland[,1]

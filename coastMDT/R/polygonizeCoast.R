@@ -14,14 +14,14 @@ polygonizeCoast<-function(mask,landVal=0){
     shape2 <- disaggregate(test)
     shape2$id <- factor(seq_len(length(shape2)))
     NoPoly<-length(shape2$id)
-    image(1:nrow(mask),1:ncol(mask),mask)
+    #image(1:nrow(mask),1:ncol(mask),mask)
 
     for (i in 1:NoPoly){
         x<-floor(nrow(mask)+1-shape2@polygons[[i]]@Polygons[[1]]@coords[,2])
         y<-floor(shape2@polygons[[i]]@Polygons[[1]]@coords[,1])
         idpol<-as.matrix(cbind(x,y))
         polyCoast[idpol]<-i
-        lines(nrow(mask)+1-shape2@polygons[[i]]@Polygons[[1]]@coords[,2],shape2@polygons[[i]]@Polygons[[1]]@coords[,1],t='l')
+        #lines(nrow(mask)+1-shape2@polygons[[i]]@Polygons[[1]]@coords[,2],shape2@polygons[[i]]@Polygons[[1]]@coords[,1],t='l')
     }
     return(polyCoast)
 }

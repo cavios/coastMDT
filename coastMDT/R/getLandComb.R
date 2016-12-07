@@ -9,7 +9,7 @@
 ##' @param boxlon Integer. The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.
 ##' @param boxlat Integer. The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast. 
 ##' @return Matrix[lon,lat] with MDT land values at the coast line, defined by polyCoast 
-##' ##' @details ...
+##' @details ...
 ##' @export
 getLandComb<-function(polyCoast,TG,TGcorr,dat,lonlim,latlim,boxlon=4,boxlat=4){
     landVal<-matrix(NA, nrow(polyCoast),ncol(polyCoast))

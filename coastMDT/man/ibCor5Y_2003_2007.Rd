@@ -5,6 +5,9 @@
 ibCor5Y_2003_2007
 }
 \description{
+Inverse barometer correction for the 5 year reference period given on
+the following grid:
+
 2880 = longitudes (0.5+(0,1,2....2879))/8. degrees
 1440 = latitudes  (0.5+(0,1,2....1439))/8. -90 degrees
 
