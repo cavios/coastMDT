@@ -1,0 +1,208 @@
+---
+title: "Getting started with the coastMDT package"
+author: "Karina Nielsen"
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+```{r,echo=FALSE,eval=TRUE,cache=TRUE}
+	library(coastMDT)
+	data(DTU15MSS)
+	data(dDTU15MSS_ref2003_2007)
+	data(eigen6c4r)
+	data(mean2TF_AddThis) 
+	data(ibCor5Y_2003_2007)
+	raw<-DTU15MSS+dDTU15MSS_ref2003_2007+ibCor5Y_2003_2007-eigen6c4r
+	data(MDT_eigen6c4r_2003_2007)
+	TG<-MDT_eigen6c4r_2003_2007
+	TG[,4]<-TG[,4]+0.7
+
+	lonlim<-c(275,300)
+	latlim<-c(20,55)
+
+	#sub grids
+	mask<-getSubGrid(landmask8,lonlim,latlim)
+	rawUS<-getSubGrid(raw,lonlim,latlim)
+	rawUScorr<-getSubGrid(dDTU15MSS_ref2003_2007,lonlim,latlim)
+	ibUS<-getSubGrid(ibCor5Y_2003_2007,lonlim,latlim)
+	idraw<-which(mask$g==0,arr.ind=TRUE)
+	rawUS$g[idraw]<-NA
+	rawUScorr$g[idraw]<-NA
+	ibUS$g[idraw]<-NA
+	TGsub<-getSubTG(TG,lonlim,latlim)
+	mylandTG_ALT<-getLandVal(rawUS$g,mask$g,lonlim,latlim,TG=TGsub,type="both",intMethod="lin")
+	#Filtering
+	boxTG_ALT<-iterativeAveSmoother(rawUS$g,mask$g,t(mylandTG_ALT),latlim)
+```
+# Introduction
+coastMDT is an R package built to improve the estimate of the coastal mean dynamic topography (MDT). The package combine altimetry and tide gauge based MDT values. The tide gauge based MDT values are used to constrain the MDT values at the coastline and on land. An iterative average filter is used to smooth the raw MDT. Under each iteration the land values are reset. In this introduction, examples are given to illustrate how to use the package.  
+\newline
+
+To load the package simply write: 
+
+```{r}
+library(coastMDT)
+```
+
+# Using the package ``coastMDT'', an example
+This section gives a step by step guide on estimating the coastal MDT. 
+
+## Load or read data
+The Package contains several data sets, which are listed below. All the gridded  data sets in the package are given on an 1/8 degree grid. The first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree and the order is east to west, then south to north. The MDT values at the at the tide gauges are given as a data frame inluding the columns; PSMSL station number, latitude, longitude, and MDT.  
+
+
+* __DTU15MSS__: DTU15 mean sea surface  on 1/8 degree grid (0-360 degree).
+ *  __eigen6c4r__:Geoid model based on EIGEN-6C4 on 1/8 degree grid (0-360 degree).
+  *  __landmask8__:Land/ocean mask on 1/8 degree grid (0-360 degree). 
+  *  __difmss15eig6c4r__: Raw MDT based on the mean sea surface DTU15MSS and the geoid model eigen6c4r. 
+  *  __dDTU15MSS_ref2003_2007__: Grid to transform the DTU15 MSS (DTU15MSS) to the MSS of the reference period 2003-2007. The grid is defined on 1/8 degree grid (0-360 degree).
+  *  __ibCor5Y_2003_2007__: Inverse barometer corrections for the 5-year reference period 2003-2007 on 1/8 degree grid (0-360 degree).
+  *  __dacCor5Y_2003_2007__: Dynamic atmosphere correction for the 5-year reference period 2003-2007 on 1/8 degree grid (0-360 degree). 
+  *  __mean2TF_AddThis__: Grid to go from the mean tide system to the tide free system. The grid is defined on 1/8 degree grid (0-360 degree).
+  *  __TF2mean_AddThis__: Grid to go from the tide free system to the mean tide system. The grid is defined on 1/8 degree grid (0-360 degree).
+  *  __MDT_eigen6c4r_2003_2007__: MDT values based on tide gauge data.  
+
+The build in data sets can easely be loaded into R as demonstrated in the example below
+   
+```{r,echo=TRUE,eval=TRUE} 
+data(DTU15MSS)
+DTU15MSS[200:203, 100:103]
+```
+```{r,echo=FALSE,eval=FALSE,cache=TRUE,fig.pos="H!",fig.cap="DTU15 Mean sea surface"}
+data(DTU15MSS)
+x<-seq(0,360-0.125,by=0.125)
+y<-seq(-90,90-0.125,by=0.125)
+image(x,y,DTU15MSS,xlab='Longitude',ylab='Latitude')
+box()
+```
+The users can also import their own data in which case other appropriate R functions should be used depending on the format of the data. The package has a simple function \verb+readncdf1var+ to read one-variable NetCDF files.   
+
+
+## Data for constructing the MDT
+The data needed to construct the coastal MDT are listed below 
+
+```{r,echo=TRUE,eval=FALSE}
+data(DTU15MSS) # MSS
+data(eigen6c4r)# Geoid model
+data(landmask8)# land/ocean mask 
+data(dDTU15MSS_ref2003_2007) # grid to correct the MSS to the reference period.
+data(ibCor5Y_2003_2007)# Inverse barometer correction
+data(MDT_eigen6c4r_2003_2007)# Tide gauge MDT
+TG<-MDT_eigen6c4r_2003_2007
+```
+## Constructing the raw MDT
+The geodetic MDT $\xi$ is constructed from the MSS and the geoid.
+
+\begin{equation}
+\xi=MSS-N,  
+\end{equation}
+
+where $N$ is the geoid. In R the two grids are simply subtracted.
+
+```{r,echo=TRUE,eval=FALSE}
+data(DTU15MSS)
+data(eigen6c4r)
+MDTraw<-DTU15MSS-eigen6c4r
+```
+
+When working with different data types such as altimetry and tide gauge data it is important to make sure that the data are in the same height reference system, time period and that the same corrections has been applied. In this example we will work with tide gauge data in covering the period 2003-2007. Hence the DTU15 MSS needs to be converted to the same reference period.
+
+The inverse barometer correction is applied to the MSS. Hence it must be re-added to the MSS in case the tide gauge data are not IB corrected. In the example below the MSS is corrected for the reference period and the IB effect is re-added to the MSS.
+
+
+```{r,echo=TRUE,eval=FALSE}
+MDTraw<-DTU15MSS+dDTU15MSS_ref2003_2007+ibCor5Y_2003_2007-eigen6c4r
+```
+The 5 year (2003-2007) IB correction and the period correction to the MSS for the east coast of the US is shown on figure \ref{fig:corr}
+
+The altimetry MSS is referenced relative to the TOPEX ellipsoid, while the tide gauge data is referenced relative to WGS84. Hence we convert the tide gauge data to the TOPEX reference.
+
+```{r,echo=TRUE,eval=FALSE}
+TG[,4]<-TG[,4]+0.7
+```
+The two data sets should now be given in the same height reference system, in the same reference period, and the same correction should be applied.
+
+## Extraction a subsection
+The available data sets are global,but the user has the possibility to
+extract regional grids with the function \verb+getSubGrid+. In the example below the East coast of the US is extracted from the raw MDT and the land/ocean mask. The tide gauge data can be extracted with the function \verb+getSubTG+.  
+
+```{r,echo=TRUE,eval=FALSE}
+#Region of interest; here the East coast of the US
+lonlim<-c(275,300) 
+latlim<-c(20,55)
+
+#sub grids and data
+rawUS<-getSubGrid(MDTraw,lonlim,latlim)
+mask<-getSubGrid(landmask8,lonlim,latlim)
+TGsub<-getSubTG(TG,lonlim,latlim)
+```
+
+```{r,corr,echo=FALSE,eval=TRUE,fig.pos="H!",fig.cap="\\label{fig:corr}Left: 5 year (2003-2007) IB correction. Right: 5 year (2003-2007) correction to the MSS"}
+par(mfrow=c(1,2),mar=c(4,4,4,6))
+plotMDT(ibUS$g,c(-0.1,0.1),lonlim,latlim,conlev=0.05,main='IB correction')
+plotMDT(rawUScorr$g,c(-0.05,0.05),lonlim,latlim,conlev=0.05,main='Correction of the MSS')
+``` 
+
+## Defining the land values
+MDT Land values are estimated with the function \verb+getLandVal+. The land values may be based on tide gauge MDT values, the altimetry alone, or a combination of both. This option is specified with the parameter \verb+type=("tg","alt", or "both")+. In the example below both tige gauge values and altimetry is used to contrain the land MDT values, see figure \ref{fig:land}.   
+
+```{r,echo=TRUE,eval=FALSE,tidy=TRUE}
+mylandTG_ALT<-getLandVal(rawUS$g,mask$g,lonlim,latlim,TG=TGsub,type="both",intMethod="lin")
+```
+
+```{r landVal,echo=TRUE,eval=TRUE,tidy=TRUE,fig.pos="H!",fig.cap="\\label{fig:land}Land values based on tide gauge and altimetry data"}
+plotMDT(mylandTG_ALT,c(-0.5,1),lonlim,latlim,addContour = FALSE)
+```
+
+## Filtering
+After the land values are estimated we can start to filter the raw MDT. The package applies an iterative average filter. After each iteration the land values are reset to the original values. It is possible to vary the radius of the filter and the number of iterations that is used. In the example below the default values are used.  
+
+```{r,echo=TRUE,eval=FALSE,tidy=TRUE}
+boxTG_ALT<-iterativeAveSmoother(rawUS$g,mask$g,t(mylandTG_ALT),latlim)
+```
+## Plotting
+The package includes a simple plotting function, so the output MDT can easily be displayed. The example below displays the MDT for the recurring example
+
+```{r,MDT,echo=TRUE,eval=TRUE,tidy=TRUE,fig.pos="H!",fig.cap="The filtered MDT. The red crosses displays the positions of the tide gauges"}
+plotMDT(t(boxTG_ALT),c(-0.5,1),lonlim,latlim,conlev=0.05)
+points(TGsub[,3:2],col='red',pch=3,lwd=2)
+```
+
+## Summary
+The compleete example is summarized below
+
+```{r, echo=TRUE,eval=FALSE,tidy=TRUE}
+library(coastMDT)
+#read data
+data(landmask8) #land mask
+#the raw MDT
+data(DTU15MSS)
+data(eigen6c4r)
+MDTraw<-DTU15MSS+dDTU15MSS_ref2003_2007+ibCor5Y_2003_2007-eigen6c4r
+data(MDT_eigen6c4r_2003_2007)
+TG<-MDT_eigen6c4r_2003_2007
+TG[,4]<-TG[,4]+0.7 # WGS84 -> TOPEX ellipsoid
+
+#region of interest
+lonlim<-c(275,300)
+latlim<-c(20,55)
+
+#sub grids and data
+mask<-getSubGrid(landmask8,lonlim,latlim)
+rawUS<-getSubGrid(MDTraw,lonlim,latlim)
+TGsub<-getSubTG(TG,lonlim,latlim)
+
+#Estimation of land data
+mylandTG_ALT<-getLandVal(rawUS$g,mask$g,lonlim,latlim,TG=TGsub,type="both",intMethod="lin")
+
+#Filtering
+boxTG_ALT<-iterativeAveSmoother(rawUS$g,mask$g,t(mylandTG_ALT),latlim)
+
+#plotting
+plotMDT(t(boxTG_ALT),c(-0.5,1),lonlim,latlim,conlev=0.05)
+```

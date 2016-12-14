@@ -25,8 +25,8 @@ doc-update: $(PACKAGE)/R/*.R
 	mv coastMDT.pdf $(PACKAGE)/doc/coastMDT_userManual.pdf
 	@touch doc-update
 
-vignette-update: $(PACKAGE)/vignettes/*.Rnw
-	cd $(PACKAGE)/vignettes; echo "library(knitr);knit2pdf('coastMDT.Rnw')" | $(R) --slave
+vignette-update: $(PACKAGE)/vignettes/*.Rmd
+	cd $(PACKAGE)/vignettes; echo "library(knitr);rmarkdown::render('coastMDT.Rmd')" | $(R) --slave
 	 mv $(PACKAGE)/vignettes/coastMDT.pdf $(PACKAGE)/doc/coastMDT_tutorial.pdf
 	@touch vignette-update
 
