@@ -22,12 +22,12 @@ all:
 
 doc-update: $(PACKAGE)/R/*.R
 	echo "library(roxygen2);roxygenize(\"$(PACKAGE)\",roclets = c(\"collate\", \"rd\"))" | $(R) --slave
-	mv coastMDT.pdf $(PACKAGE)/doc/coastMDT_userManual.pdf
+#	mv coastMDT.pdf $(PACKAGE)/doc/coastMDT_userManual.pdf
 	@touch doc-update
 
-vignette-update: $(PACKAGE)/vignettes/*.Rmd
+vignette-update: $(PACKAGE)/vignettes/coastMDT.Rmd
 	cd $(PACKAGE)/vignettes; echo "library(knitr);rmarkdown::render('coastMDT.Rmd')" | $(R) --slave
-	 mv $(PACKAGE)/vignettes/coastMDT.pdf $(PACKAGE)/doc/coastMDT_tutorial.pdf
+	mv $(PACKAGE)/vignettes/coastMDT.pdf $(PACKAGE)/doc/coastMDT_tutorial.pdf
 	@touch vignette-update
 
 namespace-update :: $(PACKAGE)/NAMESPACE

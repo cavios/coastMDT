@@ -4,7 +4,8 @@
 \alias{compareWithTG}
 \title{Extract MDT values at TG positions}
 \usage{
-compareWithTG(TG, dat, lonlim, latlim, boxlon = 3, boxlat = 3)
+compareWithTG(TG, dat, lonlim, latlim, boxlon = 3, boxlat = 3,
+  export = FALSE)
 }
 \arguments{
 \item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauges.}
@@ -18,6 +19,8 @@ compareWithTG(TG, dat, lonlim, latlim, boxlon = 3, boxlat = 3)
 \item{boxlon}{The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
 \item{boxlat}{The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
+
+\item{export}{If true a file named "TGcompare.dat" containing the following columns; TG station No., TG_MDT,Alt_mean MDT,MDT_Alt_sd,bias corrected difference (alt-TG_bias_corr) is produced.}
 }
 \value{
 A list that includes:

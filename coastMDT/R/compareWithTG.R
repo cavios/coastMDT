@@ -7,6 +7,7 @@
 ##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @param boxlon The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.
 ##' @param boxlat The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.
+##' @param export If true a file named "TGcompare.dat" containing the following columns; TG station No., TG_MDT,Alt_mean MDT,MDT_Alt_sd,bias corrected difference (alt-TG_bias_corr) is produced. 
 ##' @return A list that includes:
 ##' mean: The mean values of the field in the box, defined by boxlon and boxlat at each tide gauge position.
 ##' sd: The standard deviation of the field in the box, defined by boxlon and boxlat at each tide gauge position.
@@ -32,7 +33,7 @@
 ##' TGsub<-getSubTG(TG,lonlim,latlim)
 ##' #Compare with tide gauges
 ##' res<-compareWithTG(TGsub,rawUS$g,lonlim,latlim)
-compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3){
+compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3,export=FALSE){
     TGid<-getTGid(TG,lonlim,latlim)
     idlon<-TGid[,1]
     idlat<-TGid[,2]
@@ -71,5 +72,9 @@ compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3){
 #points(comb[,2],comb[,5],col='red',lwd=2)> arrows(comb[,2], y0=comb[,5]-2*comb[,6], y1=comb[,5]+2*comb[,6], length=0.05, angle=90, code=3,col='red',lwd=2)
     hist(newdif,n=20, col='lightblue',xlab='Difference [m]')
     par(mfrow=c(1,1))
+    if(export){
+        data=data.frame(stationNo=TG[,1],TG_MDT=TG[,4],Alt_mean=mymean,Alt_sd=mysd,biasCorrDif=newdif)
+        write.table(data,file="TGcompare.dat",row.names=FALSE, quote=FALSE)
+    }
     return(list(mean=mymean,sd=mysd,bias=bias,diff=newdif,RMS=RMS))      
 }
