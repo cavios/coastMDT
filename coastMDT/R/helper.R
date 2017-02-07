@@ -27,7 +27,7 @@ getBoxMean<-function(dat,id,boxlon=4,boxlat=4){
 ##' Helper function: Find index of coast line with Tide gauges 
 ##'
 ##' @param polyCoast Matrix[lon,lat], the out put of the function polygonizeCoast. The matrix contains the coastlines of the region defined by lonlim and latlim, where the integer values represents the coast id. 
-##' @param TG Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.
+##' @param TG Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude', 'Latitude', and 'TGMDT'. 'TGMDT' should contain MDT values at the tide gauge positions.  
 ##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @return coastid for each TG
@@ -55,22 +55,22 @@ getTGCoast<-function(polyCoast,TG,lonlim,latlim){
 
 ##' Helper function: Finds row and col id of Tide gauges 
 ##'
-##' @param TG Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.
+##' @param TG Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude', 'Latitude', and 'TGMDT'. 'TGMDT' should contain MDT values at the tide gauge positions.   
 ##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @return Matrix[N,2] with row and coulmn id for the tide gauges
 ##' @export
 getTGid<-function(TG,lonlim,latlim){
     if(lonlim[1]>lonlim[2]) lonlim[1]<-lonlim[1]-360   
-    idlon<-floor((TG[,3]-lonlim[1])/0.125)+1
-    idlat<-floor((TG[,2]-latlim[1])/0.125)+1
+    idlon<-floor((TG$Longitude-lonlim[1])/0.125)+1
+    idlat<-floor((TG$Latitude-latlim[1])/0.125)+1
     TGid<-as.matrix(cbind(idlon,idlat))
     return(TGid)
 }
 
-##' Find subset of Tide gauges 
+##' Find subset of tide gauges 
 ##'
-##' @param TG Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.
+##' @param TG Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude' and 'Latitude'.
 ##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @return subset of TG
@@ -78,12 +78,12 @@ getTGid<-function(TG,lonlim,latlim){
 getSubTG<-function(TG,lonlim,latlim){
      if (lonlim[1]>lonlim[2]){
          lonlim[1]<-lonlim[1]-360
-         id<-which(TG[,3]>180)
-         TG[id,3]<-TG[id,3]-360
-         TGsub<-TG[TG[,3]> lonlim[1]&TG[,3]< lonlim[2]&TG[,2]> latlim[1]& TG[,2]< latlim[2],]
+         id<-which(TG$Longitude>180)
+         TG$Longitude[id]<-TG$Longitude[id]-360
+         TGsub<-TG[TG$Longitude> lonlim[1]&TG$Longitude< lonlim[2]&TG$Latitude> latlim[1]& TG$Latitude< latlim[2],]
      }else{
      
-         TGsub<-TG[TG[,3]> lonlim[1]&TG[,3]< lonlim[2]&TG[,2]> latlim[1]& TG[,2]< latlim[2],]
+         TGsub<-TG[TG$Longitude> lonlim[1]&TG$Longitude< lonlim[2]&TG$Latitude> latlim[1]& TG$Latitude< latlim[2],]
      }
     return(TGsub)
 }

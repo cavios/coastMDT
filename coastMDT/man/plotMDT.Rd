@@ -4,21 +4,14 @@
 \alias{plotMDT}
 \title{Plot MDT grid}
 \usage{
-plotMDT(dat, zlim, lonlim, latlim, addContour = TRUE, res = 0.125,
-  conlev = 0.05, ...)
+plotMDT(dat, zlim, addContour = TRUE, conlev = 0.05, ...)
 }
 \arguments{
-\item{dat}{Matrix[lon,lat] with MDT values.}
+\item{dat}{An object as returned by the function 'getSubGrid' or 'iterativeAveSmoother', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes).}
 
 \item{zlim}{Range of the MDT values given as a  Vector of length 2.}
 
-\item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees}
-
-\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
-
 \item{addContour}{Bolean; To add a contour plot. Default is TRUE}
-
-\item{res}{Grid spacing}
 
 \item{conlev}{The spacing between contour lines given in meters. The default is 0.05.}
 

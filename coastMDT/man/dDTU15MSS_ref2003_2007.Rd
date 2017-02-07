@@ -6,7 +6,8 @@ dDTU15MSS_ref2003_2007
 }
 \description{
 Grid to transform the DTU15 MSS (DTU15MSS) to the MSS of the period
-2003-2007. The grid should be added. dDTU15MSS_ref2003_2007 is a 2880 x 1440 matrix.
+2003-2007. The grid should be added. dDTU15MSS_ref2003_2007 is a 2880 x
+1440 matrix. The unit is meter.
 
 The first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree
 cells are all 1/8 by 1/8 degree

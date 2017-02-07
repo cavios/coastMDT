@@ -109,8 +109,23 @@ To exit R write
 q()
 ```
 
-# Introduction
+# Introduction to the package "coastMDT"
 coastMDT is an R package built to improve the estimate of the coastal mean dynamic topography (MDT). The package combine altimetry and tide gauge based MDT values. The tide gauge based MDT values are used to constrain the MDT values at the coastline and on land. An iterative average filter is used to smooth the raw MDT. Under each iteration the land values are reset. In this introduction, examples are given to illustrate how to use the package.  
+
+## Different height systems
+
+
+
+
+# The geodetic MDT
+The geodetic MDT $\xi$ is constructed from the MSS and the geoid.
+
+\begin{equation}
+\xi=MSS-N,  
+\end{equation}
+
+where $N$ is the geoid.
+
 \newline
 
 To load the package simply write: 
@@ -124,7 +139,7 @@ library(coastMDT)
 This section gives a step by step guide on estimating the coastal MDT. 
 
 ## Load or read data
-The Package contains several data sets, which are listed below. All the gridded  data sets in the package are given on an 1/8 degree grid. The first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree and the order is east to west, then south to north. The MDT values at the at the tide gauges are given as a data frame inluding the columns; PSMSL station number, latitude, longitude, and MDT.  
+The Package contains several data sets, which are listed below. All the grid  data sets in the package are given on an 1/8 degree grid. The first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree and the order is east to west, then south to north. The data set "TG" contains information regarding the tide gauge data among other the MSL. 
 
 
 * __DTU15MSS__: DTU15 mean sea surface  on 1/8 degree grid (0-360 degree).
@@ -136,7 +151,7 @@ The Package contains several data sets, which are listed below. All the gridded 
   *  __dacCor5Y_2003_2007__: Dynamic atmosphere correction for the 5-year reference period 2003-2007 on 1/8 degree grid (0-360 degree). 
   *  __mean2TF_AddThis__: Grid to go from the mean tide system to the tide free system. The grid is defined on 1/8 degree grid (0-360 degree).
   *  __TF2mean_AddThis__: Grid to go from the tide free system to the mean tide system. The grid is defined on 1/8 degree grid (0-360 degree).
-  *  __MDT_eigen6c4r_2003_2007__: MDT values based on tide gauge data.  
+  *  __TG__: Tide gauge data. Please, see the user manual for a complete description.  
 
 The build in data sets can easely be loaded into R as demonstrated in the example below
    
@@ -153,6 +168,11 @@ box()
 ```
 The users can also import their own data in which case other appropriate R functions should be used depending on the format of the data. The package has a simple function \verb+readncdf1var+ to read one-variable NetCDF files.   
 
+Further, there is a function \verb+readRegGridBin+ that allows the user to read regular binary grids of type real4. The following example demonstrates how to use the function. Here \verb+nx+ and \verb+ny+ are the dimension of the grid 
+
+```{r,echo=FALSE,eval=FALSE,cache=TRUE}
+livc5Y<-readRegGridBin('livc_5yr_p125grid.dat', nx = 2880, ny = 1440, res = 0.125)
+```
 
 ## Data for constructing the MDT
 The data needed to construct the coastal MDT are listed below 
@@ -166,7 +186,7 @@ data(ibCor5Y_2003_2007)# Inverse barometer correction
 data(MDT_eigen6c4r_2003_2007)# Tide gauge MDT
 TG<-MDT_eigen6c4r_2003_2007
 ```
-## Constructing the raw MDT
+## Constructing the raw MDT in the mean tide system, altimetry
 The geodetic MDT $\xi$ is constructed from the MSS and the geoid.
 
 \begin{equation}
@@ -181,6 +201,8 @@ data(eigen6c4r)
 MDTraw<-DTU15MSS-eigen6c4r
 ```
 
+The DTU15MSS and the eigen6c4r are referenced to the TOPEX ellipsoid and are in the mean tide system.
+
 When working with different data types such as altimetry and tide gauge data it is important to make sure that the data are in the same height reference system, time period and that the same corrections has been applied. In this example we will work with tide gauge data in covering the period 2003-2007. Hence the DTU15 MSS needs to be converted to the same reference period.
 
 The inverse barometer correction is applied to the MSS. Hence it must be re-added to the MSS in case the tide gauge data are not IB corrected. In the example below the MSS is corrected for the reference period and the IB effect is re-added to the MSS.
@@ -190,6 +212,17 @@ The inverse barometer correction is applied to the MSS. Hence it must be re-adde
 MDTraw<-DTU15MSS+dDTU15MSS_ref2003_2007+ibCor5Y_2003_2007-eigen6c4r
 ```
 The 5 year (2003-2007) IB correction and the period correction to the MSS for the east coast of the US is shown on figure \ref{fig:corr}
+
+## Constructing the MDT in the mean tide system, tide gauges 
+
+
+
+
+
+Altimetry products are normally given in the mean tide system, while tide gauge products are given in a tide free system. The tide gauge MSL measurements in the
+
+
+
 
 The altimetry MSS is referenced relative to the TOPEX ellipsoid, while the tide gauge data is referenced relative to WGS84. Hence we convert the tide gauge data to the TOPEX reference ellipsoid. The following expression approximates the height difference $\Delta h$ assuming that the difference in latitude is very small.
 
@@ -204,6 +237,11 @@ The above expression has been implemented in the function \verb+wgs2topCorr+. He
 ```{r,echo=TRUE,eval=FALSE}
 TG[,4]<-TG[,4]+wgs2topCorr(TG[,2])
 ```
+
+
+
+
+
 The two data sets should now be given in the same height reference system, in the same reference period, and the same correction should be applied.
 
 ## Extraction a subsection

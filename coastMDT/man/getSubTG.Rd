@@ -2,12 +2,12 @@
 % Please edit documentation in R/helper.R
 \name{getSubTG}
 \alias{getSubTG}
-\title{Find subset of Tide gauges}
+\title{Find subset of tide gauges}
 \usage{
 getSubTG(TG, lonlim, latlim)
 }
 \arguments{
-\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.}
+\item{TG}{Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude' and 'Latitude'.}
 
 \item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
@@ -17,6 +17,6 @@ getSubTG(TG, lonlim, latlim)
 subset of TG
 }
 \description{
-Find subset of Tide gauges
+Find subset of tide gauges
 }
 

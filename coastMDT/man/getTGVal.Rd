@@ -7,7 +7,7 @@
 getTGVal(TG, dat, mask, lonlim, latlim, boxlon = 4, boxlat = 4)
 }
 \arguments{
-\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge.}
+\item{TG}{Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude', 'Latitude', and 'TGMDT'. 'TGMDT' should contain MDT values at the tide gauge positions.}
 
 \item{dat}{Matrix[lon,lat] with MDT values}
 

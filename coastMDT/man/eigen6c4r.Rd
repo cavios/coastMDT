@@ -5,11 +5,12 @@
 eigen6c4r
 }
 \description{
-eigen6c4r is a geoid model based on EIGEN-6C4. Eigen6c4r is a 2880 x 1440 matrix.
+eigen6c4r is a geoid model based on EIGEN-6C4. Eigen6c4r is a 2880 x
+1440 matrix. The first cell is longitude 0 to 1/8 degree, latitude -90
+to -90+1/8 degree cells are all 1/8 by 1/8 degree order is east to west, then south to north.
 
-The first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree
-cells are all 1/8 by 1/8 degree
-order is east to west, then south to north
+The unit is in meters. The geoid is referenced to the TOPEX ellipsoid
+and is given in the permanent mean tide system. 
 }
 \usage{data("eigen6c4r")}
 \format{

@@ -5,12 +5,12 @@
 \title{Extract MDT values at TG positions}
 \usage{
 compareWithTG(TG, dat, lonlim, latlim, boxlon = 3, boxlat = 3,
-  export = FALSE)
+  export = FALSE, tgfile = "TGcompare.csv")
 }
 \arguments{
-\item{TG}{Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauges.}
+\item{TG}{Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude', 'Latitude', and 'TGMDT'. 'TGMDT' should contain MDT values at the tide gauge positions.}
 
-\item{dat}{Matrix[lon,lat] with MDT values}
+\item{dat}{An object as returned by the function 'getSubGrid' or 'iterativeAveSmoother', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes).}
 
 \item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
@@ -20,7 +20,9 @@ compareWithTG(TG, dat, lonlim, latlim, boxlon = 3, boxlat = 3,
 
 \item{boxlat}{The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.}
 
-\item{export}{If true a file named "TGcompare.dat" containing the following columns; TG station No., TG_MDT,Alt_mean MDT,MDT_Alt_sd,bias corrected difference (alt-TG_bias_corr) is produced.}
+\item{export}{If true the information estimated in the function is saved in a csv file. The default name is "TGcompare.csv". The file contains; All columns in the data frame TG,Alt_mean MDT,MDT_Alt_sd,bias corrected difference (alt-TG_bias_corr).}
+
+\item{tgfile}{a character string giving the name of the file.}
 }
 \value{
 A list that includes:
@@ -35,23 +37,5 @@ The function extracts MDT values at the position of the tide gauges, and compare
 }
 \details{
 Besides the list, that is returned. A plot of the difference between the altimetry and the tide gauges MDT values is automatically generated
-}
-\examples{
-#load data
-data(landmask8) #land mask
-data(difmss15eig6c4r)
-data(MDT_EGM08_2003_2007)
-TG<-MDT_EGM08_2003_2007
-#region of interest
-lonlim<-c(275,300)
-latlim<-c(20,55)
-#sub grids
-mask<-getSubGrid(landmask8,lonlim,latlim)
-rawUS<-getSubGrid(difmss15eig6c4r,lonlim,latlim)
-idraw<-which(mask$g==0,arr.ind=TRUE)
-rawUS$g[idraw]<-NA
-TGsub<-getSubTG(TG,lonlim,latlim)
-#Compare with tide gauges
-res<-compareWithTG(TGsub,rawUS$g,lonlim,latlim)
 }
 

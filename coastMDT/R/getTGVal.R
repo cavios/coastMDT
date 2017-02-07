@@ -2,7 +2,7 @@
 ##'
 ##' Extract MDT values at TG positions and estimates a potential bias between the tide gauges and the model based MDT.  
 ##'
-##' @param TG  Data frame or matrix with tide gauge information. The dimension of TG is N x 4, where N is the number of tide gauges and the 4 columns are; PSMSL station id, latitude, longitude, MDT value at the tide gauge. 
+##' @param TG  Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude', 'Latitude', and 'TGMDT'. 'TGMDT' should contain MDT values at the tide gauge positions.   
 ##' @param dat Matrix[lon,lat] with MDT values
 ##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
 ##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
@@ -19,10 +19,13 @@ getTGVal<-function(TG,dat,mask,lonlim,latlim,boxlon=4,boxlat=4){
     TGid<-getTGid(TG,lonlim,latlim)
     boxmean<-getBoxMean(dat,TGid)
    
-    mydif<-TG[,4]-boxmean$mean
+    mydif<-TG$TGMDT-boxmean$mean
     bias<-median(mydif,na.rm=TRUE) #this could be improved
-    if(bias > 0) new<-TG[,4]+bias
-    else new<-TG[,4]-bias
+    # in TGcompareWith we have
+    if(bias > 0) new<-TG$TGMDT-bias
+    else new<-TG$TGMDT+abs(bias)
+    #if(bias > 0) new<-TG$TGMDT+bias
+    #else new<-TG$TGMDT-bias
 
     out<-cbind(TGid,TG=new,sd=boxmean$sd)
     return(list(TGland=out,bias=bias))

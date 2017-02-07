@@ -4,17 +4,15 @@
 \alias{iterativeAveSmoother}
 \title{Iterative box filter}
 \usage{
-iterativeAveSmoother(dat, mask, land, latlim, radius = 0.15/0.83, nit = 10,
+iterativeAveSmoother(dat, mask, land, radius = 0.15/0.83, nit = 10,
   res = 0.125)
 }
 \arguments{
-\item{dat}{Matrix[lon,lat] to be filtered}
+\item{dat}{An object as returned by the function 'getSubGrid', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). The matrix dat$g[lon,lat] containes the values to be filtered.}
 
-\item{mask}{Matrix[lon,lat] containing land/ocean values. Land=0, water=1.}
+\item{mask}{An object as returned by the function 'getSubGrid', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). mask$g is a Matrix[lon,lat] representing the land mask, where land=0 and water=1.}
 
-\item{land}{Matrix[lat,lon] containing land values}
-
-\item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
+\item{land}{Matrix[lon,lat] containing land values}
 
 \item{radius}{Filter radius. Default is radius=0.15/0.83}
 
@@ -23,10 +21,10 @@ iterativeAveSmoother(dat, mask, land, latlim, radius = 0.15/0.83, nit = 10,
 \item{dlat}{Grid spacing of the matrix dat. Default is dlat=0.125}
 }
 \value{
-Matrix[lat,lon] with filtered MDT values.
+List with the elements;  matrix[lon,lat] g (grid), vector lon (longitudes), vector lat (latitudes).
 }
 \description{
-This function \code{iterativeAveSmoother} ........
+The function \code{iterativeAveSmoother} is a simple average filter applied nit number of times. The size of the filter in the E-W direction is scaled according to the latitude.
 }
 \details{
 ...
