@@ -35,22 +35,4 @@ Estimates MDT land values based based on altimetry, tide gauges of both
 \details{
 ...
 }
-\examples{
-#load data
-data(landmask8) #land mask
-data(difmss15eig6c4r)
-data(MDT_EGM08_2003_2007)
-TG<-MDT_EGM08_2003_2007
-#region of interest
-lonlim<-c(275,300)
-latlim<-c(20,55)
-#sub grids
-mask<-getSubGrid(landmask8,lonlim,latlim)
-rawUS<-getSubGrid(difmss15eig6c4r,lonlim,latlim)
-idraw<-which(mask$g==0,arr.ind=TRUE)
-rawUS$g[idraw]<-NA
-TGsub<-getSubTG(TG,lonlim,latlim)
-#Estimation of land data#
-mylandTG<-getLandVal(rawUS$g,TGsub,mask$g,lonlim,latlim,type="tg",intMethod="lin")
-}
 

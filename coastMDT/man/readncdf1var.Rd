@@ -21,7 +21,7 @@ This function \code{readncdf1var} ........
 }
 \examples{
 \dontrun{
-mydat<-readncdf1var('landmask8_anyland.nc')
+mydat<-readncdf1var('landmask8.nc')
 }
 }
 

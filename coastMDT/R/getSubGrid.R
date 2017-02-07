@@ -9,9 +9,9 @@
 ##' ##' @details ...
 ##' @export
 ##' @examples
-##' data(landmask8)
+##' \dontrun{data(landmask8)
 ##' out<-getSubGrid(landmask8,c(280,300),c(30,60))
-##' image(out$lon,out$lat,out$g)
+##' image(out$lon,out$lat,out$g)}
 
 getSubGrid<-function(grid,lonlim,latlim,res=0.125,glonlim=c(0+(res/2),360-(res/2)),glatlim=c(-90+(res/2),90-(res/2))){
     

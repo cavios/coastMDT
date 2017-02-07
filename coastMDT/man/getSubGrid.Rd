@@ -31,8 +31,8 @@ Extract sub grid
 ...
 }
 \examples{
-data(landmask8)
+\dontrun{data(landmask8)
 out<-getSubGrid(landmask8,c(280,300),c(30,60))
-image(out$lon,out$lat,out$g)
+image(out$lon,out$lat,out$g)}
 }
 
