@@ -4,7 +4,7 @@
 ##' @param url A character string with the url, that specifies where the data is located. If not specified, the url is where the data for the coastMDT package is located.
 ##' @details ...
 ##' @export
-getData<-function(localdir=tempdir(), files=NULL, url="https://raw.githubusercontent.com/cavios/coastMDT/datasplit/data/files"){
+getData<-function(localdir=tempdir(), files=NULL, url="https://raw.githubusercontent.com/cavios/coastMDT/master/data/files"){
   setwd(localdir)
   if(is.null(files)){
     files <- c("dacCor5Y_2003_2007.rda", "dDTU15MSS_ref2003_2007.rda",

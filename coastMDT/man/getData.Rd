@@ -5,7 +5,7 @@
 \title{Function to download data from the web}
 \usage{
 getData(localdir = tempdir(), files = NULL,
-  url = "https://raw.githubusercontent.com/cavios/coastMDT/datasplit/data/")
+  url = "https://raw.githubusercontent.com/cavios/coastMDT/master/data/files")
 }
 \arguments{
 \item{localdir}{A character string with the name of the directory where the data will be stored. If no name is given the data is automatically stored in a temporal directory.}
