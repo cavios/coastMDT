@@ -68,3 +68,6 @@ ex-test:
 clean:
 	\rm -f install doc-update $(TARBALL) $(PACKAGE).pdf
 
+datadoc: 
+	\rm -f ./data/data4coastMDT.pdf
+	R CMD Rd2pdf --title="Description of data for the coastMDT package" -o ./data/data4coastMDT.pdf data/man/*.Rd
