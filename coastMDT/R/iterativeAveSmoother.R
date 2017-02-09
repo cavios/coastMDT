@@ -6,7 +6,7 @@
 ##' @param land Matrix[lon,lat] containing land values
 ##' @param radius Filter radius. Default is radius=0.15/0.83
 ##' @param nit Number of iterations of the box filter. Default is nit=10
-##' @param dlat Grid spacing of the matrix dat. Default is dlat=0.125
+##' @param res Grid spacing of the matrix dat. Default is dlat=0.125
 ##' @importFrom smoothie kernel2dmeitsjer
 ##' @return  List with the elements;  matrix[lon,lat] g (grid), vector lon (longitudes), vector lat (latitudes).    
 ##' @details ...

@@ -11,6 +11,8 @@ getTGVal(TG, dat, mask, lonlim, latlim, boxlon = 4, boxlat = 4)
 
 \item{dat}{Matrix[lon,lat] with MDT values}
 
+\item{mask}{An object as returned by the function 'getSubGrid', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). mask$g is a Matrix[lon,lat] representing the land mask, where land=0 and water=1.}
+
 \item{lonlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
 
 \item{latlim}{Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.}
