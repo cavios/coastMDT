@@ -27,7 +27,7 @@ doc-update: $(PACKAGE)/R/*.R
 
 vignette-update: $(PACKAGE)/vignettes/coastMDT.Rmd
 	cd $(PACKAGE)/vignettes; echo "library(knitr);rmarkdown::render('coastMDT.Rmd')" | $(R) --slave
-	mv $(PACKAGE)/vignettes/coastMDT.pdf $(PACKAGE)/doc/coastMDT_tutorial.pdf
+	#mv $(PACKAGE)/vignettes/coastMDT.pdf $(PACKAGE)/doc/coastMDT_tutorial.pdf
 	@touch vignette-update
 
 namespace-update :: $(PACKAGE)/NAMESPACE

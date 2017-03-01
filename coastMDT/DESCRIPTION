@@ -1,11 +1,11 @@
 Package: coastMDT
-Title: Estimate a coastal MDT based on various input files 
+Title: Estimate a Coastal MDT Based on Various Input Files
 Version: 0.0.1
-Date: 2016-09-16
+Date: 2017-03-01
 Author: Karina Nielsen, Ole B. Andersen, Per Knudsen, Christopher W. Hughes, and Mederic Gravelle
 Maintainer: Karina Nielsen <karni@space.dtu.dk>
-Description: More about what it does (maybe more than one line)
-License: GNU LESSER GENERAL PUBLIC LICENSE
+Description: Estimate the coastal MDT. Altimetry data and tidegauge data is combined to form an improved coastal MDT. 
+License: GPL-2
 Imports:
    ncdf4,
    smoothie,

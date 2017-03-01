@@ -3,15 +3,17 @@
 ##' @param mask Matrix[lon,lat] with land mask. Land=0 (default) and water=1.
 ##' @param landVal integeer representing the land value in the mask
 ##' @importFrom raster raster rasterToPolygons
+##' @importFrom sp disaggregate
 ##' @return Matrix[lon,lat] whith coast line ids
 ##' ##' @details ...
 ##' @export 
 polygonizeCoast<-function(mask,landVal=0){
-    require(sp)
+    #require(sp)
     polyCoast<-matrix(NA,nrow=nrow(mask),ncol=ncol(mask))    
     myraster<-raster(mask, ymn=1, ymx=nrow(mask), xmn=1, xmx=ncol(mask))
     test<-rasterToPolygons(myraster, dissolve = T,fun=function(x){x == landVal})
-    shape2 <- disaggregate(test)
+    
+    shape2 <- sp::disaggregate(test)
     shape2$id <- factor(seq_len(length(shape2)))
     NoPoly<-length(shape2$id)
     #image(1:nrow(mask),1:ncol(mask),mask)
