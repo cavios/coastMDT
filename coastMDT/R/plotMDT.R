@@ -8,7 +8,9 @@
 ##' @details ...
 ##' @export
 plotMDT<-function(dat,zlim,addContour=TRUE,conlev=0.05,...){
-    image.plot(dat$lon,dat$lat,dat$g,legend.width = 1.5,zlim=zlim,...)
+    Longitude<-dat$lon
+    Latitude<-dat$lat
+    image.plot(Longitude,Latitude,dat$g,legend.width = 1.5,zlim=zlim,...)
     if (addContour)
         {
             mylev=seq(zlim[1],zlim[2],by=conlev)

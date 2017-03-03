@@ -8,7 +8,7 @@
 ##' ##' @details ...
 ##' @export 
 polygonizeCoast<-function(mask,landVal=0){
-    #require(sp)
+    require(sp)
     polyCoast<-matrix(NA,nrow=nrow(mask),ncol=ncol(mask))    
     myraster<-raster(mask, ymn=1, ymx=nrow(mask), xmn=1, xmx=ncol(mask))
     test<-rasterToPolygons(myraster, dissolve = T,fun=function(x){x == landVal})
