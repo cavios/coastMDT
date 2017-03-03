@@ -18,7 +18,8 @@ iterativeAveSmoother(dat, mask, land, radius = 0.15/0.83, nit = 10,
 
 \item{nit}{Number of iterations of the box filter. Default is nit=10}
 
-\item{res}{Grid spacing of the matrix dat. Default is dlat=0.125}
+\item{res}{Grid spacing of the matrix dat. Default is dlat=0.125
+#}
 }
 \value{
 List with the elements;  matrix[lon,lat] g (grid), vector lon (longitudes), vector lat (latitudes).

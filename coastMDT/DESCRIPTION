@@ -8,7 +8,6 @@ Description: Estimate the coastal MDT. Altimetry data and tidegauge data is comb
 License: GPL-2
 Imports:
    ncdf4,
-   smoothie,
    fields,
    FNN,
    raster,

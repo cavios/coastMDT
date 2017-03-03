@@ -36,6 +36,7 @@ $(PACKAGE)/NAMESPACE: $(PACKAGE)/R/*.R
 
 build-package: $(TARBALL)
 $(TARBALL): $(PACKAGE)/NAMESPACE $(PACKAGE)/R/*.R
+	rm -rf coastMDT/vignettes/coastMDT_cache coastMDT/vignettes/coastMDT_files
 	$(R) CMD build --resave-data=no $(PACKAGE)
 
 install: $(TARBALL)
