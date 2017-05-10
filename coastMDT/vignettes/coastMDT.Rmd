@@ -47,7 +47,7 @@ vignette: >
 # Installation
 
 ## From Github
-The easiest way to install the package is directly from Github by using the R devtools package.
+The easiest way to install the package is directly from Github by using the R devtools package. The R-version should be 3.2.2 or higher.
 
 1. Open R
 2. Install the devtools library by typing
@@ -119,11 +119,11 @@ library(coastMDT)
 This section gives a step by step guide on estimating the coastal MDT. 
 
 ## Download and Load data 
-The test data sets are kept separate from the package but can be downloaded via the function getData. The example below demonstrates how
-to download the data and save it in the folder "MDTdat". If a data directory is not specified, data is saved in a temporary directory. 
+The test data sets are kept separate from the package but can be downloaded via the function getData. The data can be saved to a directory. In the example below the data and save in the folder "MDTdat". In the example below it is assumed that the folder "MDTdat" exists. If not it must be created before. If a data directory is not specified, data is saved in a temporary directory. 
 
 ```{r data, eval=FALSE,echo=TRUE}
-getData(localdir="MDTdat")
+getData() # Data is stored in a temporary directory
+getData(localdir="MDTdat") # Data is stored in the directory "MDTdat"
 ```
 
 A manual, "data4coastMDT.pdf", describing the available data sets are available from Github \url{https://github.com/cavios/coastMDT/tree/master/data}
@@ -142,7 +142,7 @@ The available data sets are listed below. All the grid  data sets in the package
   *  __TF2mean_AddThis__: Grid to go from the tide free system to the mean tide system. The grid is defined on 1/8 degree grid (0-360 degree).
   *  __TG__: Tide gauge data. Please, see the user manual for a complete description.  
 
-The downloaded data sets can easily be loaded into R as demonstrated in the example below
+The downloaded data sets can easily be loaded into R as demonstrated in the example below. It is here assumed that R is run from the directory, where the data is located.
 
 ```{r load,echo=TRUE,eval=FALSE} 
 load('DTU15MSS.rda')
@@ -150,14 +150,14 @@ load('DTU15MSS.rda')
 
 The users can also import their own data in which case other appropriate R functions should be used depending on the format of the data. The package has a simple function \verb+readncdf1var+ to read one-variable NetCDF files.   
 
-Further, there is a function \verb+readRegGridBin+ that allows the user to read regular binary grids of type real4. The following example demonstrates how to use the function. Here \verb+nx+ and \verb+ny+ are the dimension of the grid 
+Further, there is a function \verb+readRegGridBin+ that allows the user to read regular binary grids of type real4. The following example demonstrates how to use the function for the ocean MDT model "livc_5yr_p125grid.dat". Here \verb+nx+ and \verb+ny+ are the dimension of the grid 
 
 ```{r liv,echo=TRUE,eval=FALSE,cache=TRUE}
 livc5Y<-readRegGridBin('livc_5yr_p125grid.dat', nx = 2880, ny = 1440, res = 0.125)
 ```
 
 ## Data for constructing the MDT
-The data needed to construct the coastal MDT are listed below 
+The data needed to construct the coastal MDT are listed below. It is here assumed that R is run from the directory, where the data is located.
 
 ```{r,echo=TRUE,eval=FALSE}
 load('DTU15MSS.rda') # MSS
@@ -257,20 +257,33 @@ After the land values are estimated we can start to filter the raw MDT. The pack
 boxTG_ALT<-iterativeAveSmoother(rawSub,mask,mylandTG_ALT)
 ```
 ## Plotting
-The package includes a simple plotting function, so the output MDT can easily be displayed. The example below displays the MDT for the recurring example
+The package includes a simple plotting function, so the output MDT can easily be displayed. In this function it is also possible to plot the tide gauge MDT values in the same color scale defined by the option \verb+zlim+, by adding the argument \verb+TGdat+. The example below displays the MDT for the recurring example
 
 ```{r,MDT,echo=TRUE,eval=TRUE,tidy=TRUE,fig.pos="H!",fig.cap="The filtered MDT. The red crosses displays the positions of the tide gauges"}
-plotMDT(boxTG_ALT,c(-0.5,0.5),conlev=0.05) 
-points(TGsub$Longitude,TGsub$Latitude,col='red',pch=3)
+plotMDT(boxTG_ALT,zlim=c(-0.5,0.5),conlev=0.05,TGdat=TGsub) 
+
 ```
 
 ## Save output
 The filtered MDT can be saved to a NetCDF file with the function \verb+grid2file+
+```{r,echo=TRUE,eval=FALSE,tidy=TRUE}
 grid2file(boxTG_ALT,filename='MDT_TG_Alt_NEurope.nc')
-
+```
 ## Compare with tide gauge data
 The function \verb+compareWithTG+ allows to compare the Altimetry based MDT with the tide gauge data. The comparison can be saved to a file with the following command. 
+```{r,echo=TRUE,eval=FALSE,tidy=TRUE}
 outTG<-compareWithTG(TGsub, boxTG_ALT, lonlim, latlim,export=TRUE,tgfile="myfile.csv")
+```
+
+## Save plot to a pdf file
+The MDT plot can be saved to a pdf file with the function \verb+pdf+, see \verb+?pdf+ for help   
+
+```{r,echo=TRUE,eval=FALSE,tidy=TRUE}
+  pdf('myMDT.pdf')
+    plotMDT(boxTG_ALT,c(-0.5,0.5),conlev=0.05) 
+    points(TGsub$Longitude,TGsub$Latitude,col='red',pch=3)
+  dev.off()
+```
 
 ## Summary
 The compleete example is summarized below
@@ -303,8 +316,7 @@ mylandTG_ALT<-getLandVal(rawSub,mask,lonlim,latlim,TG=TGsub,type="both",intMetho
 #filter MDT
 boxTG_ALT<-iterativeAveSmoother(rawSub,mask,mylandTG_ALT)
 #plotting
-plotMDT(boxTG_ALT,c(-0.5,0.5),conlev=0.05) 
-points(TGsub$Longitude,TGsub$Latitude,col='red',pch=3)
+plotMDT(boxTG_ALT,c(-0.5,0.5),conlev=0.05,TGdat=TGsub) 
 ```
 
 
