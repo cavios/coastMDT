@@ -59,8 +59,8 @@ compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3,export=FALSE,tgfi
         high<-newdif+2*mysd
         myrange<-range(high,low,na.rm=TRUE)
         myrange[1]<-myrange[1]-0.1*(myrange[2]-myrange[1])
-        par(mfrow=c(1,2))
-        plot(TG$Latitude,newdif,xlab='Latitude',ylab='MDT_Alt-MDT_TG',ylim=myrange)
+        par(mfrow=c(1,2),mar=c(4,4,1,1))
+        plot(TG$Latitude,newdif,xlab='Latitude',ylab='MDT_field-MDT_TG',ylim=myrange)
         arrows(TG$Latitude, y0=low, y1=high, length=0.05, angle=90, code=3,col='black',lwd=2)
         abline(h=0,lty=2,lwd=2,col=gray(0.5))
         legend('bottomleft',legend=paste('RMS = ',signif(RMS,3),' m',sep=''),bty='n')

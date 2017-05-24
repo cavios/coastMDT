@@ -10,11 +10,11 @@
 ##' @export
 ##'
 ##'
-plotMDT<-function(dat,zlim,addContour=TRUE,conlev=0.05,TGdat=NULL,...){
+plotMDT<-function(dat,zlim,addContour=TRUE,conlev=0.05,TGdat=NULL,legendUnit='m',...){
     nlevels=20
     Longitude<-dat$lon
     Latitude<-dat$lat
-    image.plot(Longitude,Latitude,dat$g,legend.width = 1.5,zlim=zlim,...)
+    image.plot(Longitude,Latitude,dat$g,legend.width = 1.5,zlim=zlim,xlab='Longitude',ylab='Latitude',legend.lab=legendUnit,legend.cex=1.5,legend.line=3,...)
     if (addContour)
         {
             mylev=seq(zlim[1],zlim[2],by=conlev)

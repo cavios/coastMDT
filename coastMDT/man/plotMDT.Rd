@@ -4,7 +4,8 @@
 \alias{plotMDT}
 \title{Plot MDT grid}
 \usage{
-plotMDT(dat, zlim, addContour = TRUE, conlev = 0.05, TGdat = NULL, ...)
+plotMDT(dat, zlim, addContour = TRUE, conlev = 0.05, TGdat = NULL,
+  legendUnit = "m", ...)
 }
 \arguments{
 \item{dat}{An object as returned by the function 'getSubGrid' or 'iterativeAveSmoother', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes).}

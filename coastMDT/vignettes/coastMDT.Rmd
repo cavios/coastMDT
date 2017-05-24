@@ -1,10 +1,12 @@
 ---
 title: "Getting started with the coastMDT package"
 author: "Karina Nielsen"
+date: "`r Sys.Date()`"
 output: 
   pdf_document:
     toc: true
     toc_depth: 2
+bibliography: /home/karni/Documents/library.bib
 vignette: >
   %\VignetteIndexEntry{Put the title of your vignette here}
   %\VignetteEngine{knitr::rmarkdown}
@@ -43,10 +45,13 @@ vignette: >
 	
 ```
 \newpage
+# Preface
+The software package coastMDT was developed as part of the deliverable D4 in the ESA STSE project "GOCE++ Dynamic Topography at the coast and tide gauge unification (DYCOT)".   
 
 # Installation
+The software is implemented in the open source language "R" which can be found at https://www.r-project.org/. The source code to the "R" software package coastMDT is located at GitHub at https://github.com/cavios/coastMDT 
 
-## From Github
+## From GitHub
 The easiest way to install the package is directly from Github by using the R devtools package. The R-version should be 3.2.2 or higher.
 
 1. Open R
@@ -64,7 +69,11 @@ install.packages("https://raw.githubusercontent.com/cavios/coastMDT/master/coast
 ```
 
 ## Dependencies
-The packages depends on the following R libraries 
+The packages depends on the following R libraries which can be installed from R with the function \verb+install.packages+. Hence, to install the package "ncdf4"use the following command for the R window:
+ 
+```{r installpack,echo=TRUE, eval=FALSE}
+install.packages("ncdf4")
+``` 
 
 * ncdf4
 * smoothie
@@ -140,7 +149,7 @@ The available data sets are listed below. All the grid  data sets in the package
   *  __dacCor5Y_2003_2007__: Dynamic atmosphere correction for the 5-year reference period 2003-2007 on 1/8 degree grid (0-360 degree). 
   *  __mean2TF_AddThis__: Grid to go from the mean tide system to the tide free system. The grid is defined on 1/8 degree grid (0-360 degree).
   *  __TF2mean_AddThis__: Grid to go from the tide free system to the mean tide system. The grid is defined on 1/8 degree grid (0-360 degree).
-  *  __TG__: Tide gauge data. Please, see the user manual for a complete description.  
+  *  __TG__: Tide gauge data. Please, see the data description manual "data4coastMDT.pdf" (https://github.com/cavios/coastMDT/blob/master/data/data4coastMDT.pdf) for a complete description.  
 
 The downloaded data sets can easily be loaded into R as demonstrated in the example below. It is here assumed that R is run from the directory, where the data is located.
 
@@ -193,7 +202,7 @@ MDTraw<-DTU15MSS+dDTU15MSS_ref2003_2007+ibCor5Y_2003_2007-eigen6c4r
 ```
 
 ## Constructing the tide gauge MDT in the mean tide system relative to the TOPEX ellipsoid. 
-Altimetry products are normally given in the mean tide system, while tide gauge products are given in a tide free system. The height difference between the mean tide and the tide free ellipsoid height is given by
+Altimetry products are normally given in the mean tide system, while tide gauge products are given in a tide free system. The height difference between the mean tide and the tide free ellipsoid height is given by [@Ekman1989]
 
 \begin{equation}
  h_m-h_f =h_2(0.099-0.296*\sin(\phi)^2).          
@@ -318,6 +327,5 @@ boxTG_ALT<-iterativeAveSmoother(rawSub,mask,mylandTG_ALT)
 #plotting
 plotMDT(boxTG_ALT,c(-0.5,0.5),conlev=0.05,TGdat=TGsub) 
 ```
-
-
+#References
 
