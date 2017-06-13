@@ -1,24 +1,24 @@
-##' Extract MDT values at TG positions 
-##'
-##' The function extracts MDT values at the position of the tide gauges, and compares the MDT values of the field with MDT values based on the tide gauges.  
-##' @param TG Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude', 'Latitude', and 'TGMDT'. 'TGMDT' should contain MDT values at the tide gauge positions. 
-##' @param dat An object as returned by the function 'getSubGrid' or 'iterativeAveSmoother', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). 
-##' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
-##' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
-##' @param boxlon The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.
-##' @param boxlat The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.
-##' @param export If true the information estimated in the function is saved in a csv file. The default name is "TGcompare.csv". The file contains; All columns in the data frame TG,Alt_mean MDT,MDT_Alt_sd,bias corrected difference (alt-TG_bias_corr).
-##' @param tgfile a character string giving the name of the file.
-##' @return A list that includes:
-##' mean: The mean values of the field in the box, defined by boxlon and boxlat at each tide gauge position.
-##' sd: The standard deviation of the field in the box, defined by boxlon and boxlat at each tide gauge position.
-##' bias: The bias between the mean field values and the tide gauge MDT values.
-##' diff: The difference between the mean field values and the bias corrected tide gauge MDT values
-##' RMS: The RMS of the mean field values and the tide gauge MDT values
-##' @details Besides the list, that is returned. A plot of the difference between the altimetry and the tide gauges MDT values is automatically generated  
-##' @export
-##' 
-##' 
+#' Extract MDT values at TG positions 
+#'
+#' The function extracts MDT values at the position of the tide gauges, and compares the MDT values of the field with MDT values based on the tide gauges.  
+#' @param TG Data frame or matrix with tide gauge information. TG should contain at least the columns with the names 'Longitude', 'Latitude', and 'TGMDT'. 'TGMDT' should contain MDT values at the tide gauge positions. 
+#' @param dat An object as returned by the function 'getSubGrid' or 'iterativeAveSmoother', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). 
+#' @param lonlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
+#' @param latlim Vector of length 2 with the longitude data grid limits, c(lonlim[1],lonlim[2]). The limits must be given in whole degrees.
+#' @param boxlon The number ((2 x boxlon) +1) of grid cells in the longitude direction, that is used to estimate the altimetry based MDT value at the coast.
+#' @param boxlat The number ((2 x boxlat) +1) of grid cells in the latitude direction, that is used to estimate the altimetry based MDT value at the coast.
+#' @param export If true the information estimated in the function is saved in a csv file. The default name is "TGcompare.csv". The file contains; All columns in the data frame TG,Alt_mean MDT,MDT_Alt_sd,bias corrected difference (alt-TG_bias_corr).
+#' @param tgfile a character string giving the name of the file.
+#' @return A list that includes:
+#' mean: The mean values of the field in the box, defined by boxlon and boxlat at each tide gauge position.
+#' sd: The standard deviation of the field in the box, defined by boxlon and boxlat at each tide gauge position.
+#' bias: The bias between the mean field values and the tide gauge MDT values.
+#' diff: The difference between the mean field values and the bias corrected tide gauge MDT values
+#' RMS: The RMS of the mean field values and the tide gauge MDT values
+#' @details Besides the list, that is returned. A plot of the difference between the altimetry and the tide gauges MDT values is automatically generated  
+#' @export
+#' 
+#' 
 compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3,export=FALSE,tgfile="TGcompare.csv"){
     if(!"TGMDT" %in% colnames(TG)){
         stop(paste("The column 'TGMDT' is not in the 'Tide gauge file'"))

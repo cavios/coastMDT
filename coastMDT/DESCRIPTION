@@ -4,7 +4,7 @@ Version: 0.0.1
 Date: 2017-03-01
 Author: Karina Nielsen, Ole B. Andersen, Per Knudsen, Christopher W. Hughes, and Mederic Gravelle
 Maintainer: Karina Nielsen <karni@space.dtu.dk>
-Description: Estimate the coastal MDT. Altimetry data and tidegauge data is combined to form an improved coastal MDT. 
+Description: Estimate the coastal MDT. Altimetry data and tidegauge data is combined to form an improved coastal MDT. The software package coastMDT was developed as part of the deliverable D4 in the ESA STSE project "GOCE++ Dynamic Topography at the coast and tide gauge unification (DYCOT)". Installation instructions are found in the tutorial "coastMDT_tutorial.pdf" available from https://github.com/cavios/coastMDT/tree/master/doc. 
 License: GPL-2
 Imports:
    ncdf4,
@@ -16,3 +16,4 @@ Imports:
 URL: https://github.com/cavios/coastMDT
 LazyData: TRUE
 BugReports: https://github.com/cavios/coastMDT/issues
+RoxygenNote: 6.0.1

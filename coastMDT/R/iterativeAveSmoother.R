@@ -7,7 +7,6 @@
 ##' @param radius Filter radius. Default is radius=0.15/0.83
 ##' @param nit Number of iterations of the box filter. Default is nit=10
 ##' @param res Grid spacing of the matrix dat. Default is dlat=0.125
-##' #@importFrom smoothie kernel2dmeitsjer
 ##' @return  List with the elements;  matrix[lon,lat] g (grid), vector lon (longitudes), vector lat (latitudes).    
 ##' @details ...
 ##' @export 
@@ -25,21 +24,13 @@ iterativeAveSmoother<-function(dat,mask,land, radius=0.15/0.83,nit=10,res=0.125)
        for(i in (nfiltNS+1):(nr-(nfiltNS+1))){
          coslat<-cos(dat$lat[i]*pi/180)
          nfiltEW<-floor(nfiltNS/coslat)+1
-         #kmat <- kernel2dmeitsjer( "average", nx=2*nfiltEW+1, ny=2*nfiltNS+1)
          for(j in (nfiltEW+1):(nc-(nfiltEW+1))){
              sub<-grid[(i-nfiltNS):(i+nfiltNS),(j-nfiltEW):(j+nfiltEW)]
-             #isna<-any(is.na(sub))
-             #if(isna){
-             #    idna<-which(is.na(sub))
-             #    sub[idna]<-mean(sub, na.rm=TRUE)
-             #}
-                 
-           #grid[i,j]<-sum(t(kmat)*sub,na.rm=TRUE)
              grid[i,j]<-mean(sub,na.rm=TRUE)
          }
        }
        grid[idland]<-land[idland]
-   }
-   grid[idland]<-NA
-   return(list(g=t(grid),lon=dat$lon,lat=dat$lat)) 
+    }
+    grid[idland]<-NA
+    return(list(g=t(grid),lon=dat$lon,lat=dat$lat)) 
 }
