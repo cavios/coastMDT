@@ -46,7 +46,7 @@ vignette: >
 ```
 \newpage
 # Preface
-The software package coastMDT was developed as part of the deliverable D4 in the ESA STSE project "GOCE++ Dynamic Topography at the coast and tide gauge unification (DYCOT)".   
+The software package coastMDT was developed as part of the deliverable D4 in the ESA STSE project "GOCE++ Dynamic Topography at the coast and tide gauge unification (DYCOT)". More information regarding the projects are found in the project deliverables D1-D12 which are (or will be) from the project web page http://gocehsu.eu/.     
 
 # Installation
 The software is implemented in the open source language "R" which can be found at https://www.r-project.org/. The source code to the "R" software package coastMDT is located at GitHub at https://github.com/cavios/coastMDT 
@@ -265,6 +265,14 @@ After the land values are estimated we can start to filter the raw MDT. The pack
 ```{r,echo=TRUE,eval=FALSE,tidy=TRUE}
 boxTG_ALT<-iterativeAveSmoother(rawSub,mask,mylandTG_ALT)
 ```
+
+## Error estimate
+Due to the complexity of estimating the MDT it is not straight forward to estimate the corresponding error field of the MDT. However, the package allows to user to estimate an error field by using the bootstrap approach. The raw MDT of the selected region is divided into blocks. To create new bootstrap data sets we sample with replacement between the different blocks of data. Each bootstrap data set is filtered. This gives us $N$ different estimates of the MDT in each grid cell from which the standard deviation can be estimated. The size of the data blocks is specified by the user. The block size should be chosen large enough to ensure data independence but not much larger than the size of the filter. If the blocks are to large there will be too large gabs in the filtered MDT and the error will be over estimated. The example below illustrates how to use the function \verb+getError+. 
+      
+```{r,echo=TRUE,eval=FALSE,tidy=TRUE}
+sdMDT<-getError(rawSub,mylandTG_ALT,mask,bootNr=50,nnx=3,nny=3)
+```
+
 ## Plotting
 The package includes a simple plotting function, so the output MDT can easily be displayed. In this function it is also possible to plot the tide gauge MDT values in the same color scale defined by the option \verb+zlim+, by adding the argument \verb+TGdat+. The example below displays the MDT for the recurring example
 
