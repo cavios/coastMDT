@@ -43,6 +43,14 @@ compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3,export=FALSE,tgfi
                 }
         }
         mydif<-TG$TGMDT-mymean
+        if(any(is.na(mydif))){
+            idna<-which(is.na(mydif))
+            RMSuc<-sqrt(sum(mydif[-idna]^2)/length(mydif[-idna]))
+        }
+        else{
+            RMSuc<-sqrt(sum(mydif^2)/length(mydif))
+            }
+        SDdif<-sd(mydif,na.rm=TRUE)
         bias<-median(mydif,na.rm=TRUE) #this could be improved
         if(bias > 0) new<-TG$TGMDT-bias
         else new<-TG$TGMDT+abs(bias)
@@ -55,16 +63,21 @@ compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3,export=FALSE,tgfi
             RMS<-sqrt(sum(newdif^2)/length(newdif))
         }
         comb<-cbind(TG,new,mymean,mysd)
-        low<-newdif-2*mysd
-        high<-newdif+2*mysd
+        #low<-newdif-2*mysd
+        #high<-newdif+2*mysd
+        low<-mydif-2*mysd
+        high<-mydif+2*mysd
         myrange<-range(high,low,na.rm=TRUE)
-        myrange[1]<-myrange[1]-0.1*(myrange[2]-myrange[1])
+        myrange[1]<-myrange[1]-0.2*(myrange[2]-myrange[1])
         par(mfrow=c(1,2),mar=c(4,4,1,1))
-        plot(TG$Latitude,newdif,xlab='Latitude',ylab='MDT_field-MDT_TG',ylim=myrange)
+        plot(TG$Latitude,mydif,xlab='Latitude',ylab='MDT_field-MDT_TG',ylim=myrange)
+        #plot(TG$Latitude,newdif,xlab='Latitude',ylab='MDT_field-MDT_TG',ylim=myrange)
         arrows(TG$Latitude, y0=low, y1=high, length=0.05, angle=90, code=3,col='black',lwd=2)
         abline(h=0,lty=2,lwd=2,col=gray(0.5))
-        legend('bottomleft',legend=paste('RMS = ',signif(RMS,3),' m',sep=''),bty='n')
-        hist(newdif,n=20, col='lightblue',xlab='Difference [m]')
+        abline(h=bias,lty=2,lwd=2,col='red')
+        
+        legend('bottomleft',legend=c(paste('SD of difference = ',signif(SDdif,3),' m',sep=''),paste('RMS = ',signif(RMSuc,3),' m',sep=''),paste('Bias corrected RMS = ',signif(RMS,3),' m',sep=''),paste('Bias = ',signif(bias,3),' m',sep='')),bty=c('n','n','n','l'),lty=c(NA,NA,NA,2),col=c(NA,NA,NA,'red'))
+        hist(newdif,n=20, col='lightblue',xlab='Bias corrected difference [m]')
         par(mfrow=c(1,1))
         if(export){
             data=data.frame(TG,Alt_mean=mymean,Alt_sd=mysd,biasCorrDif=newdif)

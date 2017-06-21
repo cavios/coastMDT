@@ -46,7 +46,7 @@ vignette: >
 ```
 \newpage
 # Preface
-The software package coastMDT was developed as part of the deliverable D4 in the ESA STSE project "GOCE++ Dynamic Topography at the coast and tide gauge unification (DYCOT)". More information regarding the projects are found in the project deliverables D1-D12 which are (or will be) from the project web page http://gocehsu.eu/.     
+The software package coastMDT was developed as part of the deliverable D4 in the ESA STSE project "GOCE++ Dynamic Topography at the coast and tide gauge unification (DYCOT)". More information regarding the projects are found in the project deliverables D1-D12 which are (or will be) available from the project web page http://gocehsu.eu/.     
 
 # Installation
 The software is implemented in the open source language "R" which can be found at https://www.r-project.org/. The source code to the "R" software package coastMDT is located at GitHub at https://github.com/cavios/coastMDT 

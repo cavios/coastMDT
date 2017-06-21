@@ -14,6 +14,8 @@ getError(dat, land, mask, bootNr = 100, nnx = 3, nny = 3,
 
 \item{mask}{An object as returned by the function 'getSubGrid', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). mask$g is a Matrix[lon,lat] representing the land mask, where land=0 and water=1.}
 
+\item{bootNr}{Number of bootstap data sets}
+
 \item{nnx}{number of grid cells in the east-west direction}
 
 \item{nny}{number of grid cells in the north-south direction}

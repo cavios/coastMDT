@@ -5,7 +5,7 @@
 ##' @param dat An object as returned by the function 'getSubGrid', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). The matrix dat$g[lon,lat] containes the values to be filtered.
 ##' @param land Matrix[lon,lat] containing land values
 ##' @param mask An object as returned by the function 'getSubGrid', which includes a list containing  a matrix g[lon,lat], a vector lon (longitudes) and a vector lat (latitudes). mask$g is a Matrix[lon,lat] representing the land mask, where land=0 and water=1.
-##' @param bootNr
+##' @param bootNr Number of bootstap data sets
 ##' @param nnx number of grid cells in the east-west direction 
 ##' @param nny number of grid cells in the north-south direction 
 ##' @param ncores Number of available cores 
