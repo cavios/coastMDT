@@ -76,8 +76,8 @@ compareWithTG<-function(TG,dat,lonlim,latlim,boxlon=3,boxlat=3,export=FALSE,tgfi
         abline(h=0,lty=2,lwd=2,col=gray(0.5))
         abline(h=bias,lty=2,lwd=2,col='red')
         
-        legend('bottomleft',legend=c(paste('SD of difference = ',signif(SDdif,3),' m',sep=''),paste('RMS = ',signif(RMSuc,3),' m',sep=''),paste('Bias corrected RMS = ',signif(RMS,3),' m',sep=''),paste('Bias = ',signif(bias,3),' m',sep='')),bty=c('n','n','n','l'),lty=c(NA,NA,NA,2),col=c(NA,NA,NA,'red'))
-        hist(newdif,n=20, col='lightblue',xlab='Bias corrected difference [m]')
+        legend('bottomleft',legend=c(paste('SD of difference = ',signif(SDdif,3),' m',sep=''),paste('RMS = ',signif(RMSuc,3),' m',sep=''),paste('Bias = ',signif(bias,3),' m',sep='')),bty=c('n','n','l'),lty=c(NA,NA,2),col=c(NA,NA,'red'))
+        hist(newdif,n=20, col='lightblue',xlab='Bias corrected difference [m]',main=" ")
         par(mfrow=c(1,1))
         if(export){
             data=data.frame(TG,Alt_mean=mymean,Alt_sd=mysd,biasCorrDif=newdif)
