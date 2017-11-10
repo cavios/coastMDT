@@ -15,6 +15,6 @@ getCount<-function(IMat,nr,nc){
             myid<-which(IMat$Mat==idBoot[i],arr.ind=TRUE)
             countMat[myid]<-tabBoot[i]
         }
-        countMat[idraw]<-NA
+        countMat[IMat$idland]<-NA
         return(countMat)
 }

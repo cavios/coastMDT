@@ -6,7 +6,7 @@
 ##' @param nny number of grid cells in the north-south direction 
 ##' @param nr number of rows in the data matrix
 ##' @param nc number of columns in the data matrix
-##' @return  List with the elements;  matrix[lon,lat] Mat (ids of the submatrices), vector mysamples (the values of the ids), and  nrSam (the length of mysamples).    
+##' @return  List with the elements;  matrix[lon,lat] Mat (ids of the submatrices), vector mysamples (the values of the ids), nrSam (the length of mysamples) and idland, the land index.    
 ##' @details  
 getIdMat<-function(mask,nnx,nny,nr,nc){
         #dim of index matrix
@@ -24,5 +24,5 @@ getIdMat<-function(mask,nnx,nny,nr,nc){
         mysamples<-unique(as.vector(idmat))
         mysamples <- mysamples[!is.na(mysamples)]
         nrSam<-length(mysamples)
-        return(list(Mat=idmat,mysamples=mysamples,nrSam=nrSam))
+        return(list(Mat=idmat,mysamples=mysamples,nrSam=nrSam,idland=idland))
 }
