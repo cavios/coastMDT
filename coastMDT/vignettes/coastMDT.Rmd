@@ -64,6 +64,8 @@ install.packages('devtools')
 devtools::install_github("cavios/coastMDT/coastMDT")
 ```
 4. Without devtools
+When using this option start by installing the package dependencies (please, see below under Dependencies)
+
 ```{r devtools,echo=TRUE, eval=FALSE}
 install.packages("https://raw.githubusercontent.com/cavios/coastMDT/master/coastMDT_0.0.1.tar.gz")
 ```

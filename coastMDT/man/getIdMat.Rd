@@ -18,7 +18,7 @@ getIdMat(mask, nnx, nny, nr, nc)
 \item{nc}{number of columns in the data matrix}
 }
 \value{
-List with the elements;  matrix[lon,lat] Mat (ids of the submatrices), vector mysamples (the values of the ids), and  nrSam (the length of mysamples).
+List with the elements;  matrix[lon,lat] Mat (ids of the submatrices), vector mysamples (the values of the ids), nrSam (the length of mysamples) and idland, the land index.
 }
 \description{
 The function getIdMat divides a matrix into sub matrices specified by the arguments  nnx and nny .
