@@ -30,7 +30,7 @@ but are typically at the 1 mm level or less (the largest ocean values occur by t
 South American coast).
 }
 
-\usage{data("ibCor5Y_2003_2007")}
+\usage{load("ibCor5Y_2003_2007.rda")}
 \format{
  A matrix[lon,lat] of dimension 2880 x 1440 
 }
@@ -44,6 +44,6 @@ South American coast).
 Created by Christopher W. Hughes \email{cwh@noc.ac.uk}
 }
 \examples{
-data(ibCor5Y_2003_2007)
+load("ibCor5Y_2003_2007.rda")
 }
 \keyword{datasets}

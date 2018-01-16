@@ -13,7 +13,7 @@ The first cell is longitude 0 to 1/8 degree, latitude -90 to -90+1/8 degree
 cells are all 1/8 by 1/8 degree
 order is east to west, then south to north
 }
-\usage{data("dDTU15MSS_ref2003_2007")}
+\usage{load("dDTU15MSS_ref2003_2007.rda")}
 \format{
  A matrix[lon,lat] of dimension 2880 x 1440 
 }
@@ -27,6 +27,6 @@ order is east to west, then south to north
 Created by Ole B. Andersen \email{oa@space.dtu.dk}
 }
 \examples{
-data(dDTU15MSS_ref2003_2007)
+load("dDTU15MSS_ref2003_2007.rda")
 }
 \keyword{datasets}

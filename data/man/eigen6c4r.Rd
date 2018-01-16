@@ -26,6 +26,6 @@ A matrix[lon,lat] of dimension 2880 x 1440
 F\"{o}rste, Christoph; Bruinsma, Sean.L.; Abrikosov, Oleg; Lemoine, Jean-Michel; Marty, Jean Charles; Flechtner, Frank; Balmino, G.; Barthelmes, F.; Biancale, R. (2014): EIGEN-6C4 The latest combined global gravity field model including GOCE data up to degree and order 2190 of GFZ Potsdam and GRGS Toulouse. GFZ Data Services. http://doi.org/10.5880/icgem.2015.1
 }
 \examples{
-load('eigen6c4r.rda')
+load("eigen6c4r.rda")
 }
 \keyword{datasets}

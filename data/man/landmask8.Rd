@@ -18,7 +18,7 @@ isolated ocean points have been removed (excluding Black Sea and Sea of Marmara)
 
 
 }
-\usage{data(landmask8)}
+\usage{load("landmask8.rda")}
 \format{
    A matrix of dimension 2880 x 1440 
  }
@@ -43,6 +43,6 @@ Create from GEBCO2014 by Chris Hughes
   
 }
 \examples{
-data(landmask8)
+load("landmask8.rda")
 }
 \keyword{datasets}

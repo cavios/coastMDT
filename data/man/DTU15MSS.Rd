@@ -12,7 +12,7 @@ matrix. The first cell is longitude 0 to 1/8 degree, latitude -90 to
 The MSS is in meters and are referenced to the TOPEX ellipsoid. The grid
 is in the permanent mean tide system. 
 }
-\usage{data("DTU15MSS")}
+\usage{load("DTU15MSS.rda")}
 \format{
 A matrix[lon,lat] of dimension 2880 x 1440 
 
@@ -27,6 +27,6 @@ A matrix[lon,lat] of dimension 2880 x 1440
 Created by Ole B. Andersen \email{oa@space.dtu.dk}
 }
 \examples{
-data(DTU15MSS)
+load("DTU15MSS.rda")
 }
 \keyword{datasets}

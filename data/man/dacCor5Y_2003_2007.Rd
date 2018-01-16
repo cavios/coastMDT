@@ -19,7 +19,7 @@ dacCor5Y_2003_2007 represents the 5-year average of the period 2003 to
 2007.
 
 }
-\usage{data("dacCor5Y_2003_2007")}
+\usage{load("dacCor5Y_2003_2007.rda")}
 \format{
  A matrix[lon,lat] of dimension 2880 x 1440 
 }
@@ -33,7 +33,7 @@ dacCor5Y_2003_2007 represents the 5-year average of the period 2003 to
 Created by Christopher W. Hughes \email{cwh@noc.ac.uk}
 }
 \examples{
-data(dacCor5Y_2003_2007)
+load("dacCor5Y_2003_2007.rda")
 }
 \keyword{datasets}
 

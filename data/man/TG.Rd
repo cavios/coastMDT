@@ -8,7 +8,7 @@
   respective reference periods.
   
 }
-\usage{load('TG.rda')}
+\usage{load("TG.rda")}
 \format{
  A data frame with 302 observations of the following variables.
   \describe{
@@ -57,6 +57,6 @@ Create by Mederic Gravelle and Karina Nielsen
   
 }
 \examples{
-load('TG.rda')
+load("TG.rda")
 }
 \keyword{datasets}

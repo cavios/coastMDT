@@ -8,7 +8,7 @@ mean2TF_AddThis
 Grid to go from mean tide to tide free. The grid should be added. mean2TF_AddThis is a 2880 x 1440 matrix.
 }
 
-\usage{data("mean2TF_AddThis")}
+\usage{load("mean2TF_AddThis.rda")}
 \format{
  A matrix[lon,lat] of dimension 2880 x 1440 
 }
@@ -22,6 +22,6 @@ Grid to go from mean tide to tide free. The grid should be added. mean2TF_AddThi
 Created by Ole B. Andersen \email{oa@space.dtu.dk}
 }
 \examples{
-data(mean2TF_AddThis)
+load("mean2TF_AddThis.rda")
 }
 \keyword{datasets}
