@@ -8,7 +8,7 @@
   respective reference periods.
   
 }
-\usage{data(tideGauge)}
+\usage{load('TG.rda')}
 \format{
  A data frame with 302 observations of the following variables.
   \describe{
@@ -21,6 +21,8 @@
     \item{\code{QC_Flag}}{a factor vector}
     \item{\code{GPS_type}}{a factor vector}
     \item{\code{GPS_code}}{a factor vector}
+    \item{\code{Geoid.pt.LAT}}{a numeric vector}
+    \item{\code{Geoid.pt.LONG}}{a numeric vector}
     \item{\code{RLR_ell_2005.5}}{a numeric vector}
     \item{\code{Uncertainty_2005.5}}{a numeric vector}
     \item{\code{MSL_2003_2007}}{a numeric vector}
@@ -37,7 +39,7 @@
     \item{\code{egm08H}}{a numeric vector, EGM2008 geoid height above
       TOPEX ellipsoid. The values have been extracted a 1/8 degree
       version of EGM2008}
-    \item{\code{eigen6c4rC}}{a numeric vector, Eigen6c4r geoid height above
+    \item{\code{eigen6c4rC}}{a numeric vector, GOCO+Eigen6c4r geoid height above
       TOPEX ellipsoid. The values have been extracted a 1/8 degree
       version of Eigen6c4r }
   }   
@@ -55,6 +57,6 @@ Create by Mederic Gravelle and Karina Nielsen
   
 }
 \examples{
-data(TG)
+load('TG.rda')
 }
 \keyword{datasets}
