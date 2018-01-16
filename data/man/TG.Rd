@@ -21,8 +21,8 @@
     \item{\code{QC_Flag}}{a factor vector}
     \item{\code{GPS_type}}{a factor vector}
     \item{\code{GPS_code}}{a factor vector}
-    \item{\code{Geoid.pt.LAT}}{a numeric vector}
-    \item{\code{Geoid.pt.LONG}}{a numeric vector}
+    \item{\code{Geoid_pt_LAT}}{a numeric vector}
+    \item{\code{Geoid_pt_LONG}}{a numeric vector}
     \item{\code{RLR_ell_2005.5}}{a numeric vector}
     \item{\code{Uncertainty_2005.5}}{a numeric vector}
     \item{\code{MSL_2003_2007}}{a numeric vector}

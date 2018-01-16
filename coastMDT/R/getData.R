@@ -8,7 +8,7 @@ getData<-function(localdir=tempdir(), files=NULL, url="https://raw.githubusercon
   setwd(localdir)
   if(is.null(files)){
     files <- c("dacCor5Y_2003_2007.rda", "dDTU15MSS_ref2003_2007.rda",
-               "difmss15eig6c4r.rda", "DTU15MSS.rda", "eigen6c4r.rda",
+               "DTU15MSS.rda", "eigen6c4r.rda",
                "ibCor5Y_2003_2007.rda", "landmask8.rda", "mean2TF_AddThis.rda",
                "TF2mean_AddThis.rda", "TG.rda")
   } 
